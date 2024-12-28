@@ -1,6 +1,6 @@
 #include <dlfcn.h>
 
-#include "foreignlibrary.h"
+#include "dynamic_library.h"
 
 using namespace godot;
 
@@ -38,14 +38,10 @@ ffi_type* DynamicLibrary::get_ffi_type(String name) {
     }
 }
 
-void DynamicLibrary::_register_methods() {
-    //register_method("_notification", &DynamicLibrary::_notification);
-    register_method("define", &DynamicLibrary::define);
-    register_method("invoke", &DynamicLibrary::invoke);
-    register_method("_process", &DynamicLibrary::_process);
-}
+DynamicLibrary::DynamicLibrary() { }
 
-DynamicLibrary::DynamicLibrary() {
+DynamicLibrary::DynamicLibrary(Handle handle) {
+    this->handle = handle;
 }
 
 DynamicLibrary::~DynamicLibrary() {
@@ -58,13 +54,6 @@ DynamicLibrary::~DynamicLibrary() {
     if (this->handle) {
         dl_close(this->handle);
     }
-}
-
-void DynamicLibrary::_init() {
-}
-
-void DynamicLibrary::setHandle(void *handle) {
-    this->handle = handle;
 }
 
 void DynamicLibrary::define(String method, String retType, PoolStringArray argTypes) {
@@ -206,7 +195,4 @@ Variant DynamicLibrary::invoke(String method, Array args) {
     } else {
         return 0;
     }
-}
-
-void DynamicLibrary::_process(float delta) {
 }

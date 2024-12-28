@@ -1,7 +1,7 @@
 #include <godot_cpp/core/class_db.hpp>
 
 #include "dynamic_library_loader.h"
-#include "foreignlibrary.h"
+#include "dynamic_library.h"
 
 extern "C" void GDN_EXPORT godot_gdnative_init(godot_gdnative_init_options *o) {
     godot::Godot::gdnative_init(o);

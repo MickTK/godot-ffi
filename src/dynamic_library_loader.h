@@ -11,7 +11,7 @@
 #include <String.hpp>
 
 #include "common.h"
-#include "foreignlibrary.h"
+#include "dynamic_library.h"
 
 namespace godot {
 
@@ -24,6 +24,7 @@ protected:
 public:
     DynamicLibraryLoader();
     ~DynamicLibraryLoader();
+
     Ref<DynamicLibrary> open(String filename);
 
 };

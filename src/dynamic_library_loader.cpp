@@ -12,7 +12,7 @@ Ref<DynamicLibrary> DynamicLibraryLoader::open(String filename) {
         push_error("DynamicLibraryLoader: Failed to load " + filename + ": " + String(error));
         return nullptr;
     }
-    DynamicLibrary *dl = DynamicLibrary();
-    dl->setHandle(handle);
-    return Ref<DynamicLibrary>::__internal_constructor(dl);
+    return Ref<DynamicLibrary>::__internal_constructor(
+        DynamicLibrary(handle)
+    );
 }
