@@ -4,6 +4,6 @@
 
 [resource]
 resource_name = "foreigner"
-class_name = "Foreigner"
+class_name = "DynamicLibraryLoader"
 library = ExtResource( 1 )
 

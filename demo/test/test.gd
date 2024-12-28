@@ -10,7 +10,7 @@ func _init():
 
     var foreigner = load('res://foreigner.gdns').new()
     ASSERT(foreigner)
-    prints('Foreigner:', foreigner)
+    prints('DynamicLibraryLoader:', foreigner)
 
     var lib = foreigner.open('./testlib.so')
     ASSERT(lib)

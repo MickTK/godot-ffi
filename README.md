@@ -1,4 +1,4 @@
-# Foreigner: a foreign function interface library for Godot 3.1 (WIP)
+# DynamicLibraryLoader: a foreign function interface library for Godot 3.1 (WIP)
 
 This repo contains a WIP variant of a FFI adapter for Godot.
 
