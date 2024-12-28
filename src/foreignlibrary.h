@@ -24,8 +24,8 @@ typedef struct {
 typedef std::unordered_map<uint64_t, signature_t*> signature_map_t;
 typedef std::unordered_map<uint64_t, Symbol> symbol_map_t;
 
-class ForeignLibrary : public Reference {
-    GODOT_CLASS(ForeignLibrary, Reference)
+class DynamicLibrary : public Reference {
+    GODOT_CLASS(DynamicLibrary, Reference)
 
 private:
     Handle handle = 0;
@@ -39,11 +39,11 @@ public:
     static void _register_methods();
 
     static inline const char *___get_class_name() {
-        return (const char *) "ForeignLibrary";
+        return (const char *) "DynamicLibrary";
     }
 
-    ForeignLibrary();
-    ~ForeignLibrary();
+    DynamicLibrary();
+    ~DynamicLibrary();
 
     void _init();
     //void _notification(int64_t what);

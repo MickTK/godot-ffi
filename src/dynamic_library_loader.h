@@ -1,10 +1,10 @@
 /**
  @file
- Dynamic library loader
+ Load and open a dynamic library
 */
 
-#ifndef FOREIGNER_H
-#define FOREIGNER_H
+#ifndef DYNAMIC_LIBRARY_LOADER_H
+#define DYNAMIC_LIBRARY_LOADER_H
 
 #include <Godot.hpp>
 #include <Reference.hpp>
@@ -24,11 +24,10 @@ protected:
 public:
     DynamicLibraryLoader();
     ~DynamicLibraryLoader();
-
-    Ref<ForeignLibrary> open(String path);
+    Ref<DynamicLibrary> open(String filename);
 
 };
 
 }
 
-#endif
+#endif // DYNAMIC_LIBRARY_LOADER_H

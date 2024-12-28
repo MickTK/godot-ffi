@@ -4,7 +4,7 @@
 
 using namespace godot;
 
-ffi_type* ForeignLibrary::get_ffi_type(String name) {
+ffi_type* DynamicLibrary::get_ffi_type(String name) {
     if (name == "uchar") {
         return &ffi_type_uchar;
     } else if (name == "schar") {
@@ -31,25 +31,25 @@ ffi_type* ForeignLibrary::get_ffi_type(String name) {
         return &ffi_type_pointer;
     } else {
         Godot::print_error(
-                "ForeignLibrary: unknown arg type - " + name,
+                "DynamicLibrary: unknown arg type - " + name,
                 __FUNCTION__, __FILE__, __LINE__
         );
         return &ffi_type_void;
     }
 }
 
-void ForeignLibrary::_register_methods() {
-    //register_method("_notification", &ForeignLibrary::_notification);
-    register_method("define", &ForeignLibrary::define);
-    register_method("invoke", &ForeignLibrary::invoke);
-    register_method("_process", &ForeignLibrary::_process);
+void DynamicLibrary::_register_methods() {
+    //register_method("_notification", &DynamicLibrary::_notification);
+    register_method("define", &DynamicLibrary::define);
+    register_method("invoke", &DynamicLibrary::invoke);
+    register_method("_process", &DynamicLibrary::_process);
 }
 
-ForeignLibrary::ForeignLibrary() {
+DynamicLibrary::DynamicLibrary() {
 }
 
-ForeignLibrary::~ForeignLibrary() {
-    Godot::print("Destroying ForeignLibrary");
+DynamicLibrary::~DynamicLibrary() {
+    Godot::print("Destroying DynamicLibrary");
     for (signature_map_t::iterator it = signature_map.begin(); it != signature_map.end(); it++) {
         signature_t *signature = it->second;
         delete signature->cif;
@@ -60,18 +60,14 @@ ForeignLibrary::~ForeignLibrary() {
     }
 }
 
-//void ForeignLibrary::_notification(int64_t what) {
-//    Godot::print("Notification %d", what);
-//}
-
-void ForeignLibrary::_init() {
+void DynamicLibrary::_init() {
 }
 
-void ForeignLibrary::setHandle(void *handle) {
+void DynamicLibrary::setHandle(void *handle) {
     this->handle = handle;
 }
 
-void ForeignLibrary::define(String method, String retType, PoolStringArray argTypes) {
+void DynamicLibrary::define(String method, String retType, PoolStringArray argTypes) {
     // TODO: Memory leaks
     ffi_cif *cif = new ffi_cif();
     ffi_type **arg_types = new ffi_type*[argTypes.size()];
@@ -96,10 +92,10 @@ void ForeignLibrary::define(String method, String retType, PoolStringArray argTy
 
 String variant_to_string(String a) { return a; }
 
-Variant ForeignLibrary::invoke(String method, Array args) {
+Variant DynamicLibrary::invoke(String method, Array args) {
     if (!this->handle) {
         Godot::print_error(
-                "ForeignLibrary: no library loaded, cannot invoke method " + method,
+                "DynamicLibrary: no library loaded, cannot invoke method " + method,
                 __FUNCTION__, __FILE__, __LINE__
         );
         return 0;
@@ -111,7 +107,7 @@ Variant ForeignLibrary::invoke(String method, Array args) {
 
         if (!sym) {
             Godot::print_error(
-                    "ForeignLibrary: unresolved symbol - " + method,
+                    "DynamicLibrary: unresolved symbol - " + method,
                     __FUNCTION__, __FILE__, __LINE__
             );
             return 0;
@@ -122,7 +118,7 @@ Variant ForeignLibrary::invoke(String method, Array args) {
     signature_t *signature;
     if (!(signature = this->signature_map[method.hash()])) {
         Godot::print_error(
-                "ForeignLibrary: method " + method + " not prepared yet, cannot call",
+                "DynamicLibrary: method " + method + " not prepared yet, cannot call",
                 __FUNCTION__, __FILE__, __LINE__
         );
         return 0;
@@ -158,7 +154,7 @@ Variant ForeignLibrary::invoke(String method, Array args) {
             default:
                 // Variant::___get_type_name(args[i].get_type())
                 Godot::print_error(
-                        String("ForeignLibrary: argument of type ") + \
+                        String("DynamicLibrary: argument of type ") + \
                             String::num(args[i].get_type()) + \
                             " not yet supported",
                         __FUNCTION__, __FILE__, __LINE__
@@ -212,5 +208,5 @@ Variant ForeignLibrary::invoke(String method, Array args) {
     }
 }
 
-void ForeignLibrary::_process(float delta) {
+void DynamicLibrary::_process(float delta) {
 }
