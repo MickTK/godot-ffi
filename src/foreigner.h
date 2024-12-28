@@ -5,7 +5,7 @@
 #include <Reference.hpp>
 #include <String.hpp>
 
-#include "crossplatform.h"
+#include "common.h"
 #include "foreignlibrary.h"
 
 namespace godot {

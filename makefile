@@ -30,4 +30,3 @@ clean:
 	rm -f *.so
 
 .PHONY: test clean
-

@@ -11,7 +11,7 @@
 #include <Variant.hpp>
 #include <String.hpp>
 
-#include "crossplatform.h"
+#include "common.h"
 
 namespace godot {
 
@@ -22,13 +22,13 @@ typedef struct {
 } signature_t;
 
 typedef std::unordered_map<uint64_t, signature_t*> signature_map_t;
-typedef std::unordered_map<uint64_t, SYMBOL> symbol_map_t;
+typedef std::unordered_map<uint64_t, Symbol> symbol_map_t;
 
 class ForeignLibrary : public Reference {
     GODOT_CLASS(ForeignLibrary, Reference)
 
 private:
-    HANDLE handle = 0;
+    Handle handle = 0;
     //std::unordered_map<uint64_t, ffi_cif*> cif_map;
     //std::unordered_map<uint64_t,
     signature_map_t signature_map;

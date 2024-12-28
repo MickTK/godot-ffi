@@ -56,7 +56,7 @@ ForeignLibrary::~ForeignLibrary() {
         delete signature;
     }
     if (this->handle) {
-        close_library(this->handle);
+        dl_close(this->handle);
     }
 }
 
@@ -107,7 +107,7 @@ Variant ForeignLibrary::invoke(String method, Array args) {
 
     void *sym;
     if (!(sym = this->symbol_map[method.hash()])) {
-        sym = get_symbol(this->handle, method.alloc_c_string());
+        sym = dl_sym(this->handle, method.alloc_c_string());
 
         if (!sym) {
             Godot::print_error(

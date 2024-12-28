@@ -28,8 +28,8 @@ Ref<ForeignLibrary> Foreigner::open(String path) {
     // Attempt to open shared library
     Godot::print("Foreigner: Loading shared library " + path);
     // TODO: Windows/Linux/Mac
-    HANDLE handle = open_library(path.alloc_c_string());
-    char *error = open_library_error();
+    Handle handle = dl_open(path.alloc_c_string());
+    char *error = dl_error();
     if (error) {
         // Opening failed
         Godot::print_error(
