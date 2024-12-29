@@ -22,7 +22,7 @@ class DynamicLibraryFunction : public Reference {
     GODOT_CLASS(DynamicLibraryFunction, Reference)
 
 private:
-    signature_t signature;
+    signature_t *signature = nullptr;
 
 protected:
     static void _bind_methods();

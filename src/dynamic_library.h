@@ -40,9 +40,7 @@ public:
     DynamicLibrary(Handle handle);
     ~DynamicLibrary();
 
-    // bool status();
-    Ref<DynamicLibrary> get_function(String name, PoolStringArray argument_types, String return_type);
-    //Variant invoke(String method, Array args);
+    Ref<DynamicLibraryFunction> get_function(String name, PoolStringArray argument_types, String return_type);
 
 };
 
