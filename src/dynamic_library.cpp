@@ -11,12 +11,6 @@ DynamicLibrary::DynamicLibrary(Handle handle) {
 }
 
 DynamicLibrary::~DynamicLibrary() {
-    Godot::print("Destroying DynamicLibrary");
-    for (signature_map_t::iterator it = signature_map.begin(); it != signature_map.end(); it++) {
-        signature_t *signature = it->second;
-        delete signature->cif;
-        delete signature;
-    }
     if (this->handle) {
         dl_close(this->handle);
     }

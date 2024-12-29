@@ -20,12 +20,6 @@
 
 namespace godot {
 
-typedef struct {
-    ffi_cif* cif;
-    std::vector<std::string> argtypes;
-    std::string restype;
-} signature_t;
-
 class DynamicLibrary : public Reference {
     GODOT_CLASS(DynamicLibrary, Reference)
 

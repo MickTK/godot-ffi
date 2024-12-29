@@ -17,38 +17,16 @@ Variant DynamicLibraryFunction::invoke(Array args) {
         return nullptr;
     }
 
-    void *sym;
-    if (!(sym = this->symbol_map[method.hash()])) {
-        sym = dl_sym(this->handle, method.alloc_c_string());
-
-        if (!sym) {
-            Godot::print_error(
-                    "DynamicLibrary: unresolved symbol - " + method,
-                    __FUNCTION__, __FILE__, __LINE__
-            );
-            return 0;
-        }
-        this->symbol_map[method.hash()] = sym;
-    }
-
-    signature_t *signature;
-    if (!(signature = this->signature_map[method.hash()])) {
-        Godot::print_error(
-                "DynamicLibrary: method " + method + " not prepared yet, cannot call",
-                __FUNCTION__, __FILE__, __LINE__
-        );
-        return 0;
-    }
-
     void *arg_values[signature->cif->nargs];
-    uint64_t *arg_values_data[signature->cif->nargs];
-    // TODO: Suport more arg types
-    String str;
-    char* pStr;
+    bool mem_flag[signature->cif->nargs]; // keep the arg ids to free
+
+    // Casting Godot types to ffi types
+    // TODO: add more argument types
     for (int i = 0; i < args.size(); i++) {
+        mem_flag[i] = false;
         switch(args[i].get_type()) {
             case Variant::Type::NIL:
-                arg_values[i] = 0;
+                arg_values[i] = NULL;
                 break;
             case Variant::Type::INT:
                 arg_values[i] = new uint64_t(args[i]);
@@ -60,36 +38,27 @@ Variant DynamicLibraryFunction::invoke(Array args) {
                 arg_values[i] = new bool(&args[i]);
                 break;
             case Variant::Type::STRING:
-                // There must be a better way.
-                str = args[i];
-                pStr = new char[str.length() + 1];
-                memcpy(pStr, str.alloc_c_string(), str.length());
-                pStr[str.length()] = 0;
-                arg_values[i] = new char*(pStr);
+                // There must be a better way... using std::string? or smart pointers?
+                arg_values[i] = new char[args[i].length() + 1];
+                memcpy(arg_values[i], args[i].alloc_c_string(), args[i].length());
+                arg_values[i][args[i].length()] = 0; // why not "\0"?
+                mem_flag[i] = true;
                 break;
             default:
-                // Variant::___get_type_name(args[i].get_type())
-                Godot::print_error(
-                        String("DynamicLibrary: argument of type ") + \
-                            String::num(args[i].get_type()) + \
-                            " not yet supported",
-                        __FUNCTION__, __FILE__, __LINE__
-                );
-                arg_values[i] = 0;
+                error_msg("Unsopported argument of type: " + String::num(args[i].get_type()));
+                arg_values[i] = NULL;
         }
     }
-    //uint64_t result;
-    unsigned char result[8];
 
-    ffi_call(signature->cif, FFI_FN(sym), result, arg_values);
+    unsigned char result[8]; // 64 bit
 
-    // Release memory of allocated variables
+    ffi_call(signature->cif, FFI_FN(symbol), result, arg_values);
+
+    // Free memory
     for (int i = 0; i < signature->cif->nargs; i++) {
-        // TODO: Fix this
-        if (signature->argtypes[i] == "string") {
-            delete (char*)(*(char**)arg_values[i]);
-        } else {
-            delete (uint64_t*) arg_values[i];
+        if (mem_flag[i]) {
+            delete arg_values[i];
+            arg_values[i] = NULL;
         }
     }
 
