@@ -41,7 +41,7 @@ public:
     ~DynamicLibrary();
 
     // bool status();
-    void get_function(String name, PoolStringArray argument_types, String return_type);
+    Ref<DynamicLibrary> get_function(String name, PoolStringArray argument_types, String return_type);
     //Variant invoke(String method, Array args);
 
 };

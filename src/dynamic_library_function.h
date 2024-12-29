@@ -14,10 +14,8 @@
 namespace godot {
 
 typedef struct {
-    ffi_cif *cif; // call interface
+    ffi_cif *cif;       // call interface
     std::string symbol; // function name
-    std::vector<std::string> arg_types; // argument types
-    ffi_type *ret_type; // return type
 } signature_t;
 
 class DynamicLibraryFunction : public Reference {

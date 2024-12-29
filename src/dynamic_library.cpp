@@ -22,28 +22,37 @@ DynamicLibrary::~DynamicLibrary() {
     }
 }
 
-void DynamicLibrary::get_function(String name, PoolStringArray argument_types, String return_type) {
+Ref<DynamicLibraryFunction> DynamicLibrary::get_function(String name, PoolStringArray argument_types, String return_type) {
     signature_t *signature = new signature_t();
-    signature->cif = new ffi_cif();
-    signature.symbol = name.utf8().get_data();
     ffi_type **arg_types = new ffi_type*[argument_types.size()];
     ffi_status status;
+    
+    signature->cif = new ffi_cif();
+    signature.symbol = name.utf8().get_data();
 
     for (int i = 0; i < argument_types.size(); i++) {
         arg_types[i] = get_type(argument_types[i]);
-        signature->arg_types.push_back(std::string(argument_types[i].alloc_c_string()));
     }
-    signature->ret_type = get_type(return_type);
-    ffi_prep_cif(
+
+    status = ffi_prep_cif(
         signature->cif,
-        FFI_DEFAULT_ABI,
+        FFI_DEFAULT_ABI, // application binary interface (call standard)
         argument_types.size(),
-        signature->ret_type,
+        get_type(return_type),
         arg_types
     );
-}
 
-String variant_to_string(String a) { return a; }
+    // TODO
+    switch (status) {
+        case FFI_OK: break;
+        case FFI_BAD_TYPEDEF: break;
+        case FFI_BAD_ABI: break;
+        default: break;
+    }
+    return Ref<DynamicLibraryFunction>::__internal_constructor(
+        DynamicLibraryFunction(signature)
+    );
+}
 
 Variant DynamicLibrary::invoke(String method, Array args) {
     if (!this->handle) {
