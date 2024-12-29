@@ -4,8 +4,9 @@ using namespace godot;
 
 DynamicLibraryFunction::DynamicLibraryFunction() { }
 
-DynamicLibraryFunction::DynamicLibraryFunction(signature_t signature) {
-    this->signature = signature;
+DynamicLibraryFunction::DynamicLibraryFunction(Symbol symbol, ffi_cif *cif) {
+    this->symbol = symbol;
+    this->cif = cif;
 }
 
 DynamicLibraryFunction::~DynamicLibraryFunction() { }
