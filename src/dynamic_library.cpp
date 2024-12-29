@@ -4,40 +4,6 @@
 
 using namespace godot;
 
-ffi_type* DynamicLibrary::get_ffi_type(String name) {
-    if (name == "uchar") {
-        return &ffi_type_uchar;
-    } else if (name == "schar") {
-        return &ffi_type_schar;
-    } else if (name == "uint16") {
-        return &ffi_type_uint16;
-    } else if (name == "sint16") {
-        return &ffi_type_sint16;
-    } else if (name == "uint32") {
-        return &ffi_type_uint32;
-    } else if (name == "sint32") {
-        return &ffi_type_sint32;
-    } else if (name == "uint64") {
-        return &ffi_type_uint64;
-    } else if (name == "sint64") {
-        return &ffi_type_sint64;
-    } else if (name == "float") {
-        return &ffi_type_float;
-    } else if (name == "double") {
-        return &ffi_type_double;
-    } else if (name == "void") {
-        return &ffi_type_void;
-    } else if (name == "pointer" || name == "string") {
-        return &ffi_type_pointer;
-    } else {
-        Godot::print_error(
-                "DynamicLibrary: unknown arg type - " + name,
-                __FUNCTION__, __FILE__, __LINE__
-        );
-        return &ffi_type_void;
-    }
-}
-
 DynamicLibrary::DynamicLibrary() { }
 
 DynamicLibrary::DynamicLibrary(Handle handle) {
@@ -56,27 +22,25 @@ DynamicLibrary::~DynamicLibrary() {
     }
 }
 
-void DynamicLibrary::define(String method, String retType, PoolStringArray argTypes) {
-    // TODO: Memory leaks
-    ffi_cif *cif = new ffi_cif();
-    ffi_type **arg_types = new ffi_type*[argTypes.size()];
+void DynamicLibrary::get_function(String name, PoolStringArray argument_types, String return_type) {
+    signature_t *signature = new signature_t();
+    signature->cif = new ffi_cif();
+    signature.symbol = name.utf8().get_data();
+    ffi_type **arg_types = new ffi_type*[argument_types.size()];
     ffi_status status;
 
-    signature_t *signature = new signature_t();
-
-    String argString = "";
-
-    for (int i = 0; i < argTypes.size(); i++) {
-        arg_types[i] = this->get_ffi_type(argTypes[i]);
-        signature->argtypes.push_back(std::string(argTypes[i].alloc_c_string()));
-        argString += (argString.length() ? ", " : "") + argTypes[i];
+    for (int i = 0; i < argument_types.size(); i++) {
+        arg_types[i] = get_type(argument_types[i]);
+        signature->arg_types.push_back(std::string(argument_types[i].alloc_c_string()));
     }
-    signature->restype = std::string(retType.alloc_c_string());
-    ffi_prep_cif(cif, FFI_DEFAULT_ABI, argTypes.size(), this->get_ffi_type(retType), arg_types);
-    signature->cif = cif;
-    this->signature_map[method.hash()] = signature;
-
-    Godot::print("Defined function " + method + "(" + argString + ") -> " + retType);
+    signature->ret_type = get_type(return_type);
+    ffi_prep_cif(
+        signature->cif,
+        FFI_DEFAULT_ABI,
+        argument_types.size(),
+        signature->ret_type,
+        arg_types
+    );
 }
 
 String variant_to_string(String a) { return a; }

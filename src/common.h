@@ -6,6 +6,8 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include <ffi.h>
+
 #if defined(__linux__) || defined(__APPLE__) || defined(__unix__)
 #include <dlfcn.h>
 #define IS_UNIX
@@ -23,6 +25,10 @@ typedef void* Symbol;
 Handle dl_open(char *filename);
 char* dl_error();
 int dl_close(Handle handle);
-Symbol dl_sym(Handle handle, char *symbol); // Get DL symbol
+Symbol dl_sym(Handle handle, char *symbol); // get DL symbol
+
+void error_msg(String message);
+
+ffi_type* get_type(String type); // get ffi type
 
 #endif // COMMON_H
