@@ -6,17 +6,17 @@
 #ifndef DYNAMIC_LIBRARY_LOADER_H
 #define DYNAMIC_LIBRARY_LOADER_H
 
-#include <godot_cpp/variant/ref.hpp>
+//#include <godot_cpp/variant/ref.hpp>
 #include <godot_cpp/variant/string.hpp>
-#include <godot_cpp/classes/reference.hpp>
+//#include <godot_cpp/classes/reference.hpp>
 
 #include "common.h"
 #include "dynamic_library.h"
 
 namespace godot {
 
-class DynamicLibraryLoader : public Reference {
-    GODOT_CLASS(DynamicLibraryLoader, Reference)
+class DynamicLibraryLoader : public Object {
+    GDCLASS(DynamicLibraryLoader, Object);
 
 protected:
     static void _bind_methods();

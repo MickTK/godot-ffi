@@ -22,7 +22,7 @@ DynamicLibrary::~DynamicLibrary() {
 
 Ref<DynamicLibraryFunction> DynamicLibrary::get_function(String name, PackedStringArray argument_types, String return_type) {
     // Get symbol from the library
-    Symbol symbol = dl_sym(this->handle, name.utf8().get_data());
+    Symbol symbol = dl_sym(this->handle, (char*) name.utf8().get_data());
     if (!symbol) {
         error_msg("Function \"" + name + "\" not found in the current dl.");
         return nullptr;

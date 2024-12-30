@@ -34,7 +34,7 @@ Variant DynamicLibraryFunction::invoke(Array args) {
             case Variant::INT:
                 arg_values[i] = new uint64_t(args[i]);
                 break;
-            case Variant::REAL:
+            case Variant::FLOAT:
                 arg_values[i] = new double(args[i]);
                 break;
             case Variant::BOOL:

@@ -9,14 +9,15 @@
 #include <godot_cpp/variant/variant.hpp>
 #include <godot_cpp/variant/string.hpp>
 #include <godot_cpp/variant/array.hpp>
-#include <godot_cpp/classes/reference.hpp>
+#include <godot_cpp/classes/ref.hpp>
+#include <godot_cpp/classes/object.hpp>
 
 #include "common.h"
 
 namespace godot {
 
-class DynamicLibraryFunction : public Reference {
-    GODOT_CLASS(DynamicLibraryFunction, Reference)
+class DynamicLibraryFunction : public Object {
+    GDCLASS(DynamicLibraryFunction, Object);
 
 private:
     ffi_cif* cif = nullptr;  // call interface
@@ -31,7 +32,7 @@ public:
     ~DynamicLibraryFunction();
 
     Variant invoke(Array args);
-}
+};
 
 }
 

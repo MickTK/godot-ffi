@@ -39,22 +39,21 @@ void error_msg(String message) {
 
 
 ffi_type* get_type(String type) {
-    switch (type) {
-        case "uchar":  return &ffi_type_uchar;
-        case "uint16": return &ffi_type_uint16;
-        case "uint32": return &ffi_type_uint32;
-        case "uint64": return &ffi_type_uint64;
-        case "schar":  return &ffi_type_schar;
-        case "sint16": return &ffi_type_sint16;
-        case "sint32": return &ffi_type_sint32;
-        case "sint64": return &ffi_type_sint64;
-        case "float":  return &ffi_type_float;
-        case "double": return &ffi_type_double;
-        case "void":   return &ffi_type_void;
-        case "pointer":
-        case "string": return &ffi_type_pointer;
-        default:
-            error_msg("Unknown argument type: " + type);
-            return &ffi_type_void;
+    if      (type == "uchar")  return &ffi_type_uchar;
+    else if (type == "uint16") return &ffi_type_uint16;
+    else if (type == "uint32") return &ffi_type_uint32;
+    else if (type == "uint64") return &ffi_type_uint64;
+    else if (type == "schar")  return &ffi_type_schar;
+    else if (type == "sint16") return &ffi_type_sint16;
+    else if (type == "sint32") return &ffi_type_sint32;
+    else if (type == "sint64") return &ffi_type_sint64;
+    else if (type == "float")  return &ffi_type_float;
+    else if (type == "double") return &ffi_type_double;
+    else if (type == "void")   return &ffi_type_void;
+    else if (type == "pointer" || type == "string")
+        return &ffi_type_pointer;
+    else {
+        error_msg("Unknown argument type: " + type);
+        return &ffi_type_void;
     }
 }

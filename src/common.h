@@ -23,6 +23,8 @@ typedef HINSTANCE Handle;
 
 typedef void* Symbol;
 
+using namespace godot;
+
 Handle dl_open(char* filename);
 char* dl_error();
 int dl_close(Handle handle);
