@@ -9,9 +9,6 @@ func exit(secs:float = 0.25) -> void:
 func _ready() -> void:
 	print("Hello world!")
 	
-	var o := Object.new()
-	
-	
 	
 	
 	exit()
