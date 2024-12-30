@@ -6,17 +6,13 @@
 #ifndef DYNAMIC_LIBRARY_H
 #define DYNAMIC_LIBRARY_H
 
-#include <ffi.h>
-#include <unordered_map>
-#include <vector>
-
-#include <Godot.hpp>
-#include <Reference.hpp>
-#include <Array.hpp>
-#include <Variant.hpp>
-#include <String.hpp>
+#include <godot_cpp/variant/ref.hpp>
+#include <godot_cpp/variant/string.hpp>
+#include <godot_cpp/variant/packed_string_array.hpp>
+#include <godot_cpp/classes/reference.hpp>
 
 #include "common.h"
+#include "dynamic_library_function.h"
 
 namespace godot {
 
@@ -34,7 +30,7 @@ public:
     DynamicLibrary(Handle handle);
     ~DynamicLibrary();
 
-    Ref<DynamicLibraryFunction> get_function(String name, PoolStringArray argument_types, String return_type);
+    Ref<DynamicLibraryFunction> get_function(String name, PackedStringArray argument_types, String return_type);
 
 };
 

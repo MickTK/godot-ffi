@@ -1,10 +1,15 @@
+#include <godot_cpp/core/class_db.hpp>
+
 #include "dynamic_library_function.h"
 
 using namespace godot;
 
-DynamicLibraryFunction::DynamicLibraryFunction() { }
+void DynamicLibraryFunction::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("invoke", "args"), &DynamicLibraryFunction::invoke);
+}
 
-DynamicLibraryFunction::DynamicLibraryFunction(Symbol symbol, ffi_cif *cif) {
+DynamicLibraryFunction::DynamicLibraryFunction() { }
+DynamicLibraryFunction::DynamicLibraryFunction(Symbol symbol, ffi_cif* cif) {
     this->symbol = symbol;
     this->cif = cif;
 }
@@ -12,55 +17,41 @@ DynamicLibraryFunction::DynamicLibraryFunction(Symbol symbol, ffi_cif *cif) {
 DynamicLibraryFunction::~DynamicLibraryFunction() { }
 
 Variant DynamicLibraryFunction::invoke(Array args) {
-    if (!this->signature->cif) {
-        error_msg("Invalid function: " + signature->symbol);
-        return nullptr;
+    if (this->cif == nullptr) {
+        error_msg("Invalid function.");
+        return Variant();
     }
 
-    void *arg_values[signature->cif->nargs];
-    bool mem_flag[signature->cif->nargs]; // keep the arg ids to free
+    void* arg_values[this->cif->nargs];
 
     // Casting Godot types to ffi types
     // TODO: add more argument types
     for (int i = 0; i < args.size(); i++) {
-        mem_flag[i] = false;
         switch(args[i].get_type()) {
-            case Variant::Type::NIL:
-                arg_values[i] = NULL;
+            case Variant::NIL:
+                arg_values[i] = nullptr;
                 break;
-            case Variant::Type::INT:
+            case Variant::INT:
                 arg_values[i] = new uint64_t(args[i]);
                 break;
-            case Variant::Type::REAL:
+            case Variant::REAL:
                 arg_values[i] = new double(args[i]);
                 break;
-            case Variant::Type::BOOL:
+            case Variant::BOOL:
                 arg_values[i] = new bool(&args[i]);
                 break;
-            case Variant::Type::STRING:
-                // There must be a better way... using std::string? or smart pointers?
-                arg_values[i] = new char[args[i].length() + 1];
-                memcpy(arg_values[i], args[i].alloc_c_string(), args[i].length());
-                arg_values[i][args[i].length()] = 0; // why not "\0"?
-                mem_flag[i] = true;
+            case Variant::STRING:
+                arg_values[i] = args[i].alloc_c_string();
                 break;
             default:
-                error_msg("Unsopported argument of type: " + String::num(args[i].get_type()));
-                arg_values[i] = NULL;
+                error_msg("Unsupported argument of type: " + String::num(args[i].get_type()));
+                arg_values[i] = nullptr;
         }
     }
 
-    unsigned char result[8]; // 64 bit
+    ffi_arg result;
 
-    ffi_call(signature->cif, FFI_FN(symbol), result, arg_values);
-
-    // Free memory
-    for (int i = 0; i < signature->cif->nargs; i++) {
-        if (mem_flag[i]) {
-            delete arg_values[i];
-            arg_values[i] = NULL;
-        }
-    }
+    ffi_call(this->cif, FFI_FN(this->symbol), &result, arg_values);
 
     // Cast result from ffi type to Godot type
     if      (cif->rtype == &ffi_type_uchar)   return Variant(*(uint8_t*) result);
@@ -75,5 +66,5 @@ Variant DynamicLibraryFunction::invoke(Array args) {
     else if (cif->rtype == &ffi_type_double)  return Variant(*(double*) result);
     else if (cif->rtype == &ffi_type_void)    return Variant(*(uint64_t*) result);
     else if (cif->rtype == &ffi_type_pointer) return Variant(*(const char**) result);
-    else { error_msg("Invalid result type");  return Variant(NULL); }
+    else { error_msg("Invalid result type."); return Variant(); }
 }

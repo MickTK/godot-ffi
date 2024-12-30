@@ -1,6 +1,6 @@
 #include "common.h"
 
-Handle dl_open(char *filename) {
+Handle dl_open(char* filename) {
 #ifdef IS_UNIX
     return dlopen(filename, RTLD_LAZY);
 #else
@@ -24,7 +24,7 @@ int dl_close(Handle handle) {
 #endif
 }
 
-Symbol dl_sym(Handle handle, char *symbol) {
+Symbol dl_sym(Handle handle, char* symbol) {
 #ifdef IS_UNIX
     return dlsym(handle, symbol);
 #else

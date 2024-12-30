@@ -6,8 +6,10 @@
 #ifndef DYNAMIC_LIBRARY_FUNCTION_H
 #define DYNAMIC_LIBRARY_FUNCTION_H
 
-#include <ffi.h>
-#include <vector>
+#include <godot_cpp/variant/variant.hpp>
+#include <godot_cpp/variant/string.hpp>
+#include <godot_cpp/variant/array.hpp>
+#include <godot_cpp/classes/reference.hpp>
 
 #include "common.h"
 
@@ -17,7 +19,7 @@ class DynamicLibraryFunction : public Reference {
     GODOT_CLASS(DynamicLibraryFunction, Reference)
 
 private:
-    ffi_cif *cif = nullptr;  // call interface
+    ffi_cif* cif = nullptr;  // call interface
     Symbol symbol = nullptr; // lib function pointer
 
 protected:
@@ -25,7 +27,7 @@ protected:
 
 public:
     DynamicLibraryFunction();
-    DynamicLibraryFunction(ffi_cif*);
+    DynamicLibraryFunction(Symbol,ffi_cif*);
     ~DynamicLibraryFunction();
 
     Variant invoke(Array args);

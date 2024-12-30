@@ -6,9 +6,9 @@
 #ifndef DYNAMIC_LIBRARY_LOADER_H
 #define DYNAMIC_LIBRARY_LOADER_H
 
-#include <Godot.hpp>
-#include <Reference.hpp>
-#include <String.hpp>
+#include <godot_cpp/variant/ref.hpp>
+#include <godot_cpp/variant/string.hpp>
+#include <godot_cpp/classes/reference.hpp>
 
 #include "common.h"
 #include "dynamic_library.h"

@@ -7,6 +7,7 @@
 #define COMMON_H
 
 #include <ffi.h>
+#include <godot_cpp/variant/string.hpp>
 
 #if defined(__linux__) || defined(__APPLE__) || defined(__unix__)
 #include <dlfcn.h>
@@ -22,10 +23,10 @@ typedef HINSTANCE Handle;
 
 typedef void* Symbol;
 
-Handle dl_open(char *filename);
+Handle dl_open(char* filename);
 char* dl_error();
 int dl_close(Handle handle);
-Symbol dl_sym(Handle handle, char *symbol); // get DL symbol
+Symbol dl_sym(Handle handle, char* symbol); // get DL symbol
 
 void error_msg(String message);
 
