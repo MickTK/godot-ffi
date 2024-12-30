@@ -41,7 +41,7 @@ Variant DynamicLibraryFunction::invoke(Array args) {
                 arg_values[i] = new bool(&args[i]);
                 break;
             case Variant::STRING:
-                arg_values[i] = args[i].alloc_c_string();
+                arg_values[i] = (char*) String(args[i]).utf8().get_data();
                 break;
             default:
                 error_msg("Unsupported argument of type: " + String::num(args[i].get_type()));

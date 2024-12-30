@@ -16,8 +16,8 @@
 
 namespace godot {
 
-class DynamicLibraryFunction : public Object {
-    GDCLASS(DynamicLibraryFunction, Object);
+class DynamicLibraryFunction : public RefCounted {
+    GDCLASS(DynamicLibraryFunction, RefCounted);
 
 private:
     ffi_cif* cif = nullptr;  // call interface

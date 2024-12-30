@@ -15,8 +15,8 @@
 
 namespace godot {
 
-class DynamicLibraryLoader : public Object {
-    GDCLASS(DynamicLibraryLoader, Object);
+class DynamicLibraryLoader : public RefCounted {
+    GDCLASS(DynamicLibraryLoader, RefCounted);
 
 protected:
     static void _bind_methods();

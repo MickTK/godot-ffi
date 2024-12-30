@@ -25,7 +25,7 @@ Ref<DynamicLibraryFunction> DynamicLibrary::get_function(String name, PackedStri
     Symbol symbol = dl_sym(this->handle, (char*) name.utf8().get_data());
     if (!symbol) {
         error_msg("Function \"" + name + "\" not found in the current dl.");
-        return nullptr;
+        return Ref<DynamicLibraryFunction>();
     }
 
     ffi_cif *cif = new ffi_cif();
@@ -52,7 +52,7 @@ Ref<DynamicLibraryFunction> DynamicLibrary::get_function(String name, PackedStri
         default: break;
     }
 
-    return Ref<DynamicLibraryFunction>::__internal_constructor(
-        DynamicLibraryFunction(symbol, cif)
-    );
+    DynamicLibraryFunction* func = memnew(DynamicLibraryFunction(symbol, cif));
+    Ref<DynamicLibraryFunction> func_ref(func);
+    return func_ref;
 }

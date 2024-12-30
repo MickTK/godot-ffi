@@ -12,13 +12,14 @@ DynamicLibraryLoader::DynamicLibraryLoader() { }
 DynamicLibraryLoader::~DynamicLibraryLoader() { }
 
 Ref<DynamicLibrary> DynamicLibraryLoader::open(String filename) {
-    Handle handle = dl_open(filename.utf8().get_data());
+    Handle handle = dl_open((char*)(filename.utf8().get_data()));
     char* error = dl_error();
     if (error) {
-        push_error("Failed to load " + filename + ": " + String(error));
-        return nullptr;
+        error_msg("Failed to load " + filename + ": " + String(error));
+        return Ref<DynamicLibrary>();
     }
-    return Ref<DynamicLibrary>::__internal_constructor(
-        DynamicLibrary(handle)
-    );
+
+    DynamicLibrary* dl = memnew(DynamicLibrary(handle));
+    Ref<DynamicLibrary> dl_ref(dl);
+    return dl_ref;
 }

@@ -16,8 +16,8 @@
 
 namespace godot {
 
-class DynamicLibrary : public Object {
-    GDCLASS(DynamicLibrary, Object);
+class DynamicLibrary : public RefCounted {
+    GDCLASS(DynamicLibrary, RefCounted);
 
 private:
     Handle handle = nullptr;
