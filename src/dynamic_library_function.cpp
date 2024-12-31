@@ -14,7 +14,9 @@ DynamicLibraryFunction::DynamicLibraryFunction(Symbol symbol, ffi_cif* cif) {
     this->cif = cif;
 }
 
-DynamicLibraryFunction::~DynamicLibraryFunction() { }
+DynamicLibraryFunction::~DynamicLibraryFunction() {
+    delete this->cif;
+}
 
 Variant DynamicLibraryFunction::invoke(Array args) {
     if (this->cif == nullptr) {

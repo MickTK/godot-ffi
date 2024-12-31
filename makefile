@@ -3,5 +3,6 @@ demo/bin/testlib.so: testlib/testlib.cpp
 
 clean:
 	rm -f demo/bin/*.so
+	rm -f src/*.os
 
 .PHONY: clean
