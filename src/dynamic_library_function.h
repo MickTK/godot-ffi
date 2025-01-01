@@ -30,7 +30,7 @@ public:
     DynamicLibraryFunction();
     ~DynamicLibraryFunction();
 
-    void set_bind(Symbol,ffi_cif*);
+    void bind(Symbol,ffi_cif*);
     Variant invoke(Array args);
 };
 

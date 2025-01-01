@@ -11,10 +11,10 @@ void DynamicLibraryFunction::_bind_methods() {
 DynamicLibraryFunction::DynamicLibraryFunction() { }
 
 DynamicLibraryFunction::~DynamicLibraryFunction() {
-    if (cif) delete this->cif;
+    if (cif != nullptr) delete this->cif;
 }
 
-void DynamicLibraryFunction::set_bind(Symbol symbol, ffi_cif* cif) {
+void DynamicLibraryFunction::bind(Symbol symbol, ffi_cif* cif) {
     this->symbol = symbol;
     this->cif = cif;
 }
