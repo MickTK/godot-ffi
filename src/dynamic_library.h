@@ -27,9 +27,9 @@ protected:
 
 public:
     DynamicLibrary();
-    DynamicLibrary(Handle handle);
     ~DynamicLibrary();
 
+    void set_handle(Handle handle);
     Ref<DynamicLibraryFunction> get_function(String name, PackedStringArray argument_types, String return_type);
 
 };

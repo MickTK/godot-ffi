@@ -10,14 +10,14 @@ void DynamicLibrary::_bind_methods() {
 
 DynamicLibrary::DynamicLibrary() { }
 
-DynamicLibrary::DynamicLibrary(Handle handle) {
-    this->handle = handle;
-}
-
 DynamicLibrary::~DynamicLibrary() {
     if (this->handle) {
         dl_close(this->handle);
     }
+}
+
+void DynamicLibrary::set_handle(Handle handle) {
+    this->handle = handle;
 }
 
 Ref<DynamicLibraryFunction> DynamicLibrary::get_function(String name, PackedStringArray argument_types, String return_type) {
@@ -25,7 +25,9 @@ Ref<DynamicLibraryFunction> DynamicLibrary::get_function(String name, PackedStri
     Symbol symbol = dl_sym(this->handle, (char*) name.utf8().get_data());
     if (!symbol) {
         error_msg("Function \"" + name + "\" not found in the current dl.");
-        return Ref<DynamicLibraryFunction>();
+        Ref<DynamicLibraryFunction> ref;
+        ref.instantiate();
+        return ref;
     }
 
     ffi_cif *cif = new ffi_cif();
@@ -52,7 +54,8 @@ Ref<DynamicLibraryFunction> DynamicLibrary::get_function(String name, PackedStri
         default: break;
     }
 
-    DynamicLibraryFunction* func = memnew(DynamicLibraryFunction(symbol, cif));
-    Ref<DynamicLibraryFunction> func_ref(func);
-    return func_ref;
+    Ref<DynamicLibraryFunction> ref;
+    ref.instantiate();
+    ref->set_bind(symbol, cif);
+    return ref;
 }

@@ -9,13 +9,14 @@ void DynamicLibraryFunction::_bind_methods() {
 }
 
 DynamicLibraryFunction::DynamicLibraryFunction() { }
-DynamicLibraryFunction::DynamicLibraryFunction(Symbol symbol, ffi_cif* cif) {
-    this->symbol = symbol;
-    this->cif = cif;
-}
 
 DynamicLibraryFunction::~DynamicLibraryFunction() {
-    delete this->cif;
+    if (cif) delete this->cif;
+}
+
+void DynamicLibraryFunction::set_bind(Symbol symbol, ffi_cif* cif) {
+    this->symbol = symbol;
+    this->cif = cif;
 }
 
 Variant DynamicLibraryFunction::invoke(Array args) {

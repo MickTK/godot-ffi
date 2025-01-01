@@ -19,10 +19,13 @@ Ref<DynamicLibrary> DynamicLibraryLoader::open(String filename) {
     char* error = dl_error();
     if (error) {
         error_msg("Failed to load " + filename + ": " + String(error));
-        return Ref<DynamicLibrary>();
+        Ref<DynamicLibrary> ref;
+        ref.instantiate();
+        return ref;
     }
 
-    DynamicLibrary* dl = memnew(DynamicLibrary(handle));
-    Ref<DynamicLibrary> dl_ref(dl);
-    return dl_ref;
+    Ref<DynamicLibrary> ref;
+    ref.instantiate();
+    ref->set_handle(handle);
+    return ref;
 }

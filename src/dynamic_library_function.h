@@ -28,9 +28,9 @@ protected:
 
 public:
     DynamicLibraryFunction();
-    DynamicLibraryFunction(Symbol,ffi_cif*);
     ~DynamicLibraryFunction();
 
+    void set_bind(Symbol,ffi_cif*);
     Variant invoke(Array args);
 };
 
