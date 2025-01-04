@@ -6,4 +6,14 @@
     <description>
         Singleton class used to load dynamic libraries.
     </description>
+    <methods>
+        <method name="open">
+            <description>
+                Open a dynamic library and return the reference.
+                The path should be relative to the module folder.
+            </description>
+            <argument name="filename" type="String" index="0" />
+            <return type="DynamicLibrary" />
+        </method>
+    </methods>
 </class>
