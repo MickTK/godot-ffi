@@ -25,11 +25,15 @@ Variant DynamicLibraryFunction::invoke(Array args) {
         return Variant();
     }
 
-    void* arg_values[this->cif->nargs];
+    void* arg_values[this->cif->nargs]; // argument values (for function call)
+    String str; // wrapper
+    char* pStr; // pointer to given string
+    bool mem_flag[this->cif->nargs]; // used to free the allocated memory
 
     // Casting Godot types to ffi types
     // TODO: add more argument types
     for (int i = 0; i < args.size(); i++) {
+        mem_flag[i] = false;
         switch(args[i].get_type()) {
             case Variant::NIL:
                 arg_values[i] = nullptr;
@@ -44,8 +48,12 @@ Variant DynamicLibraryFunction::invoke(Array args) {
                 arg_values[i] = new bool(args[i]);
                 break;
             case Variant::STRING:
-                //arg_values[i] = (char*) String(args[i]).utf8().get_data();
-                arg_values[i] = strdup(String(args[i]).utf8().get_data());
+                str = args[i];
+                pStr = new char[str.length()+1];
+                memcpy(pStr, str.utf8().get_data(), str.length());
+                pStr[str.length()] = 0;
+                arg_values[i] = new char*(pStr);
+                mem_flag[i] = true;
                 break;
             default:
                 error_msg("Unsupported argument of type: " + String::num(args[i].get_type()));
@@ -53,25 +61,38 @@ Variant DynamicLibraryFunction::invoke(Array args) {
         }
     }
 
-    ffi_arg result;
+    ffi_arg result; // function result
 
     ffi_call(this->cif, FFI_FN(this->symbol), &result, arg_values);
 
-    // Cast result from ffi type to Godot type
-    if      (cif->rtype == &ffi_type_uchar)   return Variant(*(uint8_t*) result);
-    else if (cif->rtype == &ffi_type_uint8)   return Variant(*(uint8_t*) result);
-    else if (cif->rtype == &ffi_type_uint16)  return Variant(*(uint16_t*) result);
-    else if (cif->rtype == &ffi_type_uint32)  return Variant(*(uint32_t*) result);
-    else if (cif->rtype == &ffi_type_uint64)  return Variant(*(uint64_t*) result);
-    else if (cif->rtype == &ffi_type_schar)   return Variant(*(int8_t*) result);
-    else if (cif->rtype == &ffi_type_sint8)   return Variant(*(int8_t*) result);
-    else if (cif->rtype == &ffi_type_sint16)  return Variant(*(int16_t*) result);
-    else if (cif->rtype == &ffi_type_sint32)  return Variant(*(int32_t*) result);
-    else if (cif->rtype == &ffi_type_sint64)  return Variant(*(int64_t*) &result);
-    else if (cif->rtype == &ffi_type_float)   return Variant(*(float*) &result);
-    else if (cif->rtype == &ffi_type_double)  return Variant(*(double*) &result);
-    else if (cif->rtype == &ffi_type_void)    return Variant(*(uint64_t*) result);
-    else if (cif->rtype == &ffi_type_pointer) return Variant(*(char**) &result);
-    else { error_msg("Invalid result type."); return Variant(); }
+    Variant res; // return value
 
+    // Cast result from ffi type to Godot type
+    if      (cif->rtype == &ffi_type_uchar)   res = Variant(*(uint8_t*) &result);
+    else if (cif->rtype == &ffi_type_uint8)   res = Variant(*(uint8_t*) &result);
+    else if (cif->rtype == &ffi_type_uint16)  res = Variant(*(uint16_t*) &result);
+    else if (cif->rtype == &ffi_type_uint32)  res = Variant(*(uint32_t*) &result);
+    else if (cif->rtype == &ffi_type_uint64)  res = Variant(*(uint64_t*) &result);
+    else if (cif->rtype == &ffi_type_schar)   res = Variant(*(int8_t*) &result);
+    else if (cif->rtype == &ffi_type_sint8)   res = Variant(*(int8_t*) &result);
+    else if (cif->rtype == &ffi_type_sint16)  res = Variant(*(int16_t*) &result);
+    else if (cif->rtype == &ffi_type_sint32)  res = Variant(*(int32_t*) &result);
+    else if (cif->rtype == &ffi_type_sint64)  res = Variant(*(int64_t*) &result);
+    else if (cif->rtype == &ffi_type_float)   res = Variant(*(float*) &result);
+    else if (cif->rtype == &ffi_type_double)  res = Variant(*(double*) &result);
+    else if (cif->rtype == &ffi_type_void)    res = Variant(*(uint64_t*) &result);
+    else if (cif->rtype == &ffi_type_pointer) res = Variant(*(char**) &result);
+    else { error_msg("Invalid result type."); res = Variant(); }
+
+    // Free the memory
+    pStr = nullptr;
+    for (int i = 0; i < this->cif->nargs; i++) {
+        if (mem_flag[i]) {
+            delete[] *(char**)(arg_values[i]); // pStr
+            delete (char**)(arg_values[i]);    // arg_values[i]
+            arg_values[i] = nullptr;
+        }
+    }
+
+    return res;
 }

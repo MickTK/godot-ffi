@@ -16,16 +16,14 @@ extern "C" {
     double float_neg(double val) {return val*-1;}
     double float_sum(double val0, double val1) {return val0+val1;}
     // bool
-    int64_t bool_identity(int64_t val) {return val;}
+    uint8_t bool_identity(uint8_t val) {return val;}
     // string
-
-}
-
-extern "C" char* joinStrings(const char *a, const char *b) {
-    printf("%s + %s\n", a, b);
-    char *c = new char[strlen(a) + strlen(b) + 1];
-    strncpy(c, a, strlen(a));
-    strncpy(c + strlen(a), b, strlen(b));
-    c[strlen(a) + strlen(b)] = 0;
-    return c;
+    const char* string_identity(const char* val) {return val;}
+    char* string_join(const char *a, const char *b) {
+        char *c = new char[strlen(a) + strlen(b) + 1];
+        strncpy(c, a, strlen(a));
+        strncpy(c + strlen(a), b, strlen(b));
+        c[strlen(a) + strlen(b)] = 0;
+        return c;
+    }
 }
