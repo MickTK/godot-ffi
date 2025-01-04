@@ -6,15 +6,15 @@
 #ifndef DYNAMIC_LIBRARY_H
 #define DYNAMIC_LIBRARY_H
 
-//#include <godot_cpp/variant/ref.hpp>
+#include <godot_cpp/classes/ref.hpp>
 #include <godot_cpp/variant/string.hpp>
 #include <godot_cpp/variant/packed_string_array.hpp>
-//#include <godot_cpp/classes/reference.hpp>
 
 #include "common.h"
-#include "dynamic_library_function.h"
 
 namespace godot {
+
+class DynamicLibraryFunction;
 
 class DynamicLibrary : public RefCounted {
     GDCLASS(DynamicLibrary, RefCounted);

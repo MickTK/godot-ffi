@@ -1,6 +1,7 @@
 #include <godot_cpp/core/class_db.hpp>
 
 #include "dynamic_library_function.h"
+#include "dynamic_library.h"
 
 using namespace godot;
 
@@ -14,7 +15,8 @@ DynamicLibraryFunction::~DynamicLibraryFunction() {
     if (cif != nullptr) delete this->cif;
 }
 
-void DynamicLibraryFunction::bind(Symbol symbol, ffi_cif* cif) {
+void DynamicLibraryFunction::bind(Ref<DynamicLibrary> dl, Symbol symbol, ffi_cif* cif) {
+    this->dl = dl;
     this->symbol = symbol;
     this->cif = cif;
 }

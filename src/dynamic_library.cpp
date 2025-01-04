@@ -1,6 +1,7 @@
 #include <godot_cpp/core/class_db.hpp>
 
 #include "dynamic_library.h"
+#include "dynamic_library_function.h"
 
 using namespace godot;
 
@@ -55,6 +56,6 @@ Ref<DynamicLibraryFunction> DynamicLibrary::get_function(String name, PackedStri
 
     Ref<DynamicLibraryFunction> ref;
     ref.instantiate();
-    ref->bind(symbol, cif);
+    ref->bind(Ref<DynamicLibrary>(this), symbol, cif);
     return ref;
 }

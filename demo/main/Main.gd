@@ -2,18 +2,10 @@ extends Control
 class_name Main
 
 func _ready() -> void:
+	
 	var loader:DynamicLibraryLoader = DynamicLibraryLoader.new()
-	#var dl:DynamicLibrary = loader.open("testlib.so")
-	var fn = get_fn()
-	#print(fn.invoke([100]))
-	#await get_tree().create_timer(0).timeout
-	#get_tree().quit()
-	
-	
-	
-	#var loader:DynamicLibraryLoader = DynamicLibraryLoader.new()
 	var dl:DynamicLibrary = loader.open("testlib.so")
-	#var fn:DynamicLibraryFunction
+	var fn:DynamicLibraryFunction
 	
 	print("Start test.")
 	
@@ -63,7 +55,7 @@ func _ready() -> void:
 	fn = dl.get_function("string_join", ["string", "string"], "string")
 	assert(fn.invoke(["Ciao, ", "Ciccio!"]) == "Ciao, Ciccio!")
 	
-	
+	print(get_fn().invoke([432]))
 	
 	
 	print("End test.")

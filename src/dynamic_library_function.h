@@ -16,10 +16,13 @@
 
 namespace godot {
 
+class DynamicLibrary;
+
 class DynamicLibraryFunction : public RefCounted {
     GDCLASS(DynamicLibraryFunction, RefCounted);
 
 private:
+    Ref<DynamicLibrary> dl = nullptr;  // dl reference (keeps it alive)
     ffi_cif* cif = nullptr;  // call interface
     Symbol symbol = nullptr; // lib function pointer
 
@@ -30,7 +33,7 @@ public:
     DynamicLibraryFunction();
     ~DynamicLibraryFunction();
 
-    void bind(Symbol,ffi_cif*);
+    void bind(Ref<DynamicLibrary>,Symbol,ffi_cif*);
     Variant invoke(Array args);
 };
 
