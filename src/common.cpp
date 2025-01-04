@@ -36,8 +36,7 @@ Symbol dl_sym(Handle handle, char* symbol) {
 
 
 void error_msg(String message) {
-    // print error msg
-    UtilityFunctions::print(message);
+    UtilityFunctions::print("\x1b[31;1mGodot FFI error:\x1b[0m " + String("\x1b[31m" + message + "\x1b[0m"));
 }
 
 

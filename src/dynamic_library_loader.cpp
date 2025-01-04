@@ -16,7 +16,7 @@ Ref<DynamicLibrary> DynamicLibraryLoader::open(String filename) {
     Handle handle = dl_open((char*)(filename.utf8().get_data()));
     char* error = dl_error();
     if (error) {
-        error_msg("Failed to load " + filename + ": " + String(error));
+        error_msg(String(error));
         return Ref<DynamicLibrary>();
     }
 

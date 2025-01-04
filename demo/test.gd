@@ -12,7 +12,7 @@ func _init():
 	
 	# void
 	fn = dl.get_function("void_identity", [], "void")
-	
+
 	# int
 	fn = dl.get_function("int_identity", ["sint64"], "sint64")
 	ASSERT(fn.invoke([5]) == 5)
