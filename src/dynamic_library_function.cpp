@@ -41,10 +41,11 @@ Variant DynamicLibraryFunction::invoke(Array args) {
                 arg_values[i] = new double(args[i]);
                 break;
             case Variant::BOOL:
-                arg_values[i] = new bool(&args[i]);
+                arg_values[i] = new bool(args[i]);
                 break;
             case Variant::STRING:
-                arg_values[i] = (char*) String(args[i]).utf8().get_data();
+                //arg_values[i] = (char*) String(args[i]).utf8().get_data();
+                arg_values[i] = strdup(String(args[i]).utf8().get_data());
                 break;
             default:
                 error_msg("Unsupported argument of type: " + String::num(args[i].get_type()));
@@ -58,16 +59,19 @@ Variant DynamicLibraryFunction::invoke(Array args) {
 
     // Cast result from ffi type to Godot type
     if      (cif->rtype == &ffi_type_uchar)   return Variant(*(uint8_t*) result);
+    else if (cif->rtype == &ffi_type_uint8)   return Variant(*(uint8_t*) result);
     else if (cif->rtype == &ffi_type_uint16)  return Variant(*(uint16_t*) result);
     else if (cif->rtype == &ffi_type_uint32)  return Variant(*(uint32_t*) result);
     else if (cif->rtype == &ffi_type_uint64)  return Variant(*(uint64_t*) result);
     else if (cif->rtype == &ffi_type_schar)   return Variant(*(int8_t*) result);
+    else if (cif->rtype == &ffi_type_sint8)   return Variant(*(int8_t*) result);
     else if (cif->rtype == &ffi_type_sint16)  return Variant(*(int16_t*) result);
     else if (cif->rtype == &ffi_type_sint32)  return Variant(*(int32_t*) result);
-    else if (cif->rtype == &ffi_type_sint64)  return Variant(*(int64_t*) result);
-    else if (cif->rtype == &ffi_type_float)   return Variant(*(float*) result);
-    else if (cif->rtype == &ffi_type_double)  return Variant(*(double*) result);
+    else if (cif->rtype == &ffi_type_sint64)  return Variant(*(int64_t*) &result);
+    else if (cif->rtype == &ffi_type_float)   return Variant(*(float*) &result);
+    else if (cif->rtype == &ffi_type_double)  return Variant(*(double*) &result);
     else if (cif->rtype == &ffi_type_void)    return Variant(*(uint64_t*) result);
-    else if (cif->rtype == &ffi_type_pointer) return Variant(*(const char**) result);
+    else if (cif->rtype == &ffi_type_pointer) return Variant(*(char**) &result);
     else { error_msg("Invalid result type."); return Variant(); }
+
 }

@@ -24,6 +24,7 @@ Ref<DynamicLibraryFunction> DynamicLibrary::get_function(String name, PackedStri
     // Get symbol from the library
     Symbol symbol = dl_sym(this->handle, (char*) name.utf8().get_data());
     if (!symbol) {
+        error_msg(String(name.utf8().get_data()));
         error_msg("Function \"" + name + "\" not found in the current dl.");
         return Ref<DynamicLibraryFunction>();
     }

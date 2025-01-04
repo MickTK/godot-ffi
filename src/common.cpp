@@ -1,5 +1,7 @@
 #include "common.h"
 
+#include <godot_cpp/variant/utility_functions.hpp>
+
 Handle dl_open(char* filename) {
 #ifdef IS_UNIX
     return dlopen(filename, RTLD_LAZY);
@@ -35,15 +37,18 @@ Symbol dl_sym(Handle handle, char* symbol) {
 
 void error_msg(String message) {
     // print error msg
+    UtilityFunctions::print(message);
 }
 
 
 ffi_type* get_type(String type) {
     if      (type == "uchar")  return &ffi_type_uchar;
+    else if (type == "uint8")  return &ffi_type_uint8;
     else if (type == "uint16") return &ffi_type_uint16;
     else if (type == "uint32") return &ffi_type_uint32;
     else if (type == "uint64") return &ffi_type_uint64;
     else if (type == "schar")  return &ffi_type_schar;
+    else if (type == "sint8")  return &ffi_type_sint8;
     else if (type == "sint16") return &ffi_type_sint16;
     else if (type == "sint32") return &ffi_type_sint32;
     else if (type == "sint64") return &ffi_type_sint64;
