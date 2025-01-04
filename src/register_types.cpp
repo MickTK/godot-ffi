@@ -1,6 +1,7 @@
 #include <gdextension_interface.h>
 #include <godot_cpp/core/defs.hpp>
 #include <godot_cpp/godot.hpp>
+#include <godot_cpp/classes/engine.hpp>
 
 #include "register_types.h"
 #include "dynamic_library_loader.h"
@@ -11,7 +12,10 @@ using namespace godot;
 
 void initialize_ffi_module(ModuleInitializationLevel p_level) {
 	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) { return; }
-	GDREGISTER_CLASS(DynamicLibraryLoader);
+	// Singletons
+	ClassDB::register_class<DynamicLibraryLoader>();
+    Engine::get_singleton()->register_singleton("DynamicLibraryLoader", memnew(DynamicLibraryLoader));
+	// Classes
 	GDREGISTER_CLASS(DynamicLibrary);
 	GDREGISTER_CLASS(DynamicLibraryFunction);
 }

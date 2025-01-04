@@ -3,8 +3,7 @@ class_name Main
 
 func _ready() -> void:
 	
-	var loader:DynamicLibraryLoader = DynamicLibraryLoader.new()
-	var dl:DynamicLibrary = loader.open("testlib.so")
+	var dl:DynamicLibrary = DynamicLibraryLoader.open("testlib.so")
 	var fn:DynamicLibraryFunction
 	
 	print("Start test.")
@@ -55,15 +54,7 @@ func _ready() -> void:
 	fn = dl.get_function("string_join", ["string", "string"], "string")
 	assert(fn.invoke(["Ciao, ", "Ciccio!"]) == "Ciao, Ciccio!")
 	
-	print(get_fn().invoke([432]))
-	
-	
 	print("End test.")
 	print("Test completed.")
 	await get_tree().create_timer(0.25).timeout
 	get_tree().quit()
-
-
-
-func get_fn() -> DynamicLibraryFunction:
-	return DynamicLibraryLoader.new().open("testlib.so").get_function("int_identity", ["sint64"], "sint64")

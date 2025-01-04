@@ -14,7 +14,7 @@
 
 namespace godot {
 
-class DynamicLibraryFunction;
+class DynamicLibraryFunction; // forward declaration
 
 class DynamicLibrary : public RefCounted {
     GDCLASS(DynamicLibrary, RefCounted);

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="DynamicLibraryLoader" inherits="RefCounted">
+    <brief_description>
+        Singleton class used to load dynamic libraries.
+    </brief_description>
+    <description>
+        Singleton class used to load dynamic libraries.
+    </description>
+</class>

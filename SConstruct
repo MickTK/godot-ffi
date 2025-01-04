@@ -14,8 +14,13 @@ env = SConscript("godot-cpp/SConstruct")
 
 # tweak this if you want to use different folders, or more folders, to store your source code in.
 env.Append(CPPPATH=["src/"])
-env.Append(LIBS=['ffi'])
+env.Append(LIBS=['ffi']) # libffi
 sources = Glob("src/*.cpp")
+
+# Documentation
+if env["target"] in ["editor", "template_debug"]:
+    doc_data = env.GodotCPPDocData("src/gen/doc_data.gen.cpp", source=Glob("doc_classes/*.xml"))
+    sources.append(doc_data)
 
 if env["platform"] == "macos":
     library = env.SharedLibrary(

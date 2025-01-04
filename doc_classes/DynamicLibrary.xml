@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="DynamicLibrary" inherits="RefCounted">
+    <brief_description>
+        Dynamic library interface instance.
+    </brief_description>
+</class>
