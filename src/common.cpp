@@ -1,6 +1,7 @@
 #include "common.h"
 
 #include <godot_cpp/variant/utility_functions.hpp>
+#include <godot_cpp/core/class_db.hpp>
 
 Handle dl_open(char* filename) {
 #ifdef IS_UNIX
@@ -38,24 +39,48 @@ void error_msg(String message = "Generic error.") {
     UtilityFunctions::print("\x1b[31;1mGodot FFI error:\x1b[0m " + String("\x1b[31m" + message + "\x1b[0m"));
 }
 
-ffi_type* get_type(String type) {
-    if      (type == "uchar")  return &ffi_type_uchar;
-    else if (type == "uint8")  return &ffi_type_uint8;
-    else if (type == "uint16") return &ffi_type_uint16;
-    else if (type == "uint32") return &ffi_type_uint32;
-    else if (type == "uint64") return &ffi_type_uint64;
-    else if (type == "schar")  return &ffi_type_schar;
-    else if (type == "sint8")  return &ffi_type_sint8;
-    else if (type == "sint16") return &ffi_type_sint16;
-    else if (type == "sint32") return &ffi_type_sint32;
-    else if (type == "sint64") return &ffi_type_sint64;
-    else if (type == "float")  return &ffi_type_float;
-    else if (type == "double") return &ffi_type_double;
-    else if (type == "void")   return &ffi_type_void;
-    else if (type == "pointer" || type == "string")
-        return &ffi_type_pointer;
-    else {
-        error_msg("Unknown argument type: " + type + ".");
-        return &ffi_type_void;
+using namespace godot;
+
+void FFI::_bind_methods() {
+    ClassDB::bind_integer_constant(get_class_static(), "", "VOID", VOID);
+    ClassDB::bind_integer_constant(get_class_static(), "", "UINT8", UINT8);
+    ClassDB::bind_integer_constant(get_class_static(), "", "BOOL", BOOL);
+    ClassDB::bind_integer_constant(get_class_static(), "", "UINT16", UINT16);
+    ClassDB::bind_integer_constant(get_class_static(), "", "UINT32", UINT32);
+    ClassDB::bind_integer_constant(get_class_static(), "", "UINT64", UINT64);
+    ClassDB::bind_integer_constant(get_class_static(), "", "SINT8", SINT8);
+    ClassDB::bind_integer_constant(get_class_static(), "", "SINT16", SINT16);
+    ClassDB::bind_integer_constant(get_class_static(), "", "SINT32", SINT32);
+    ClassDB::bind_integer_constant(get_class_static(), "", "SINT64", SINT64);
+    ClassDB::bind_integer_constant(get_class_static(), "", "INT", INT);
+    ClassDB::bind_integer_constant(get_class_static(), "", "UCHAR", UCHAR);
+    ClassDB::bind_integer_constant(get_class_static(), "", "SCHAR", SCHAR);
+    ClassDB::bind_integer_constant(get_class_static(), "", "FLOAT32", FLOAT32);
+    ClassDB::bind_integer_constant(get_class_static(), "", "DOUBLE", DOUBLE);
+    ClassDB::bind_integer_constant(get_class_static(), "", "FLOAT", FLOAT);
+    ClassDB::bind_integer_constant(get_class_static(), "", "FLOAT64", FLOAT64);
+    ClassDB::bind_integer_constant(get_class_static(), "", "POINTER", POINTER);
+    ClassDB::bind_integer_constant(get_class_static(), "", "STRING", STRING);
+}
+
+ffi_type* FFI::get_type(int type) {
+    switch (type) {
+        case FFI::VOID:    return &ffi_type_void;
+        case FFI::UINT8:   return &ffi_type_uint8;
+        case FFI::UINT16:  return &ffi_type_uint16;
+        case FFI::UINT32:  return &ffi_type_uint32;
+        case FFI::UINT64:  return &ffi_type_uint64;
+        case FFI::SINT8:   return &ffi_type_sint8;
+        case FFI::SINT16:  return &ffi_type_sint16;
+        case FFI::SINT32:  return &ffi_type_sint32;
+        case FFI::SINT64:  return &ffi_type_sint64;
+        case FFI::UCHAR:   return &ffi_type_uchar;
+        case FFI::SCHAR:   return &ffi_type_schar;
+        case FFI::FLOAT32: return &ffi_type_float;
+        case FFI::DOUBLE:  return &ffi_type_double;
+        case FFI::POINTER: return &ffi_type_pointer;
+        default:
+            error_msg("Unknown argument type: " + String(Variant(type)) + ".");
+            return &ffi_type_void;
     }
 }

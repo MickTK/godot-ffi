@@ -21,7 +21,7 @@ void DynamicLibrary::set_handle(Handle handle) {
     this->handle = handle;
 }
 
-Ref<DynamicLibraryFunction> DynamicLibrary::get_function(String name, PackedStringArray argument_types, String return_type) {
+Ref<DynamicLibraryFunction> DynamicLibrary::get_function(String name, PackedInt32Array argument_types, int return_type) {
     // Get (function) symbol from the library
     Symbol symbol = dl_sym(this->handle, (char*) name.utf8().get_data());
     if (!symbol) {
@@ -34,7 +34,7 @@ Ref<DynamicLibraryFunction> DynamicLibrary::get_function(String name, PackedStri
     
     // Get all the ffi types from literal
     for (int i = 0; i < argument_types.size(); i++) {
-        arg_types[i] = get_type(argument_types[i]);
+        arg_types[i] = FFI::get_type(argument_types[i]);
     }
 
     switch (
@@ -42,7 +42,7 @@ Ref<DynamicLibraryFunction> DynamicLibrary::get_function(String name, PackedStri
             cif,
             FFI_DEFAULT_ABI, // application binary interface (call standard)
             argument_types.size(),
-            get_type(return_type),
+            FFI::get_type(return_type),
             arg_types
         )
     ) {

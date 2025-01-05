@@ -8,6 +8,7 @@
 
 #include <ffi.h>
 #include <godot_cpp/variant/string.hpp>
+#include <godot_cpp/classes/ref.hpp>
 
 #if defined(__linux__) || defined(__APPLE__) || defined(__unix__)
 #include <dlfcn.h>
@@ -74,14 +75,43 @@ Symbol dl_sym(Handle handle, char* symbol); // get DL symbol
  */
 void error_msg(String message);
 
-/**
- * @brief Get a ffi type from literal.
- *
- * Get and return a ffi type corresponding to the given string name.
- *
- * @param type Type name.
- * @return Pointer to ffi type.
- */
-ffi_type* get_type(String type); // get ffi type
+namespace godot {
+
+class FFI : public RefCounted {
+    GDCLASS(FFI, RefCounted);
+
+protected:
+    static void _bind_methods();
+
+public:
+    enum {
+        VOID,
+        UINT8, BOOL = UINT8,
+        UINT16,
+        UINT32,
+        UINT64,
+        SINT8,
+        SINT16,
+        SINT32,
+        SINT64, INT = SINT64,
+        UCHAR,
+        SCHAR,
+        FLOAT32,
+        DOUBLE, FLOAT = DOUBLE, FLOAT64 = DOUBLE,
+        POINTER, STRING = POINTER,
+    };
+
+    /**
+    * @brief Get a ffi type from literal.
+    *
+    * Get and return a ffi type corresponding to the given string name.
+    *
+    * @param type Type name.
+    * @return Pointer to ffi type.
+    */
+    static ffi_type* get_type(int type);
+};
+
+}
 
 #endif // COMMON_H

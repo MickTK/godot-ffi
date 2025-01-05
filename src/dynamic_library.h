@@ -57,7 +57,7 @@ public:
     * @param return_type The type of the value returned by the function.
     * @return Reference to dl function.
     */
-    Ref<DynamicLibraryFunction> get_function(String name, PackedStringArray argument_types, String return_type);
+    Ref<DynamicLibraryFunction> get_function(String name, PackedInt32Array argument_types, int return_type);
 
 };
 

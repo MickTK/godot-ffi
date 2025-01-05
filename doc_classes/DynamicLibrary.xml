@@ -12,7 +12,7 @@
                 Get and return a function reference from the dynamic library.
             </description>
             <argument name="name" type="String" index="0" />
-            <argument name="argument_types" type="PackedStringArray" index="0" />
+            <argument name="argument_types" type="PackedInt32Array" index="0" />
             <argument name="return_type" type="String" index="0" />
             <return type="DynamicLibraryFunction" />
         </method>
