@@ -25,13 +25,63 @@ typedef void* Symbol;
 
 using namespace godot;
 
+/**
+ * @brief Open a dynamic library.
+ *
+ * Open a dynamic library from module relative path and return and handle.
+ *
+ * @param filename The name of the dynamic library.
+ * @return The library handle.
+ */
 Handle dl_open(char* filename);
+
+/**
+ * @brief Get a dl loading error.
+ *
+ * Get the error given when loading a dynamic library.
+ *
+ * @return Error message.
+ */
 char* dl_error();
+
+/**
+ * @brief Close a dynamic library.
+ *
+ * Close a dynamic library and dealloc the reference.
+ *
+ * @param handle Handle to the dl.
+ * @return Current number of dl references.
+ */
 int dl_close(Handle handle);
+
+/**
+ * @brief Get a symbol from a dl.
+ *
+ * Get a (function) symbol from an opened dynamic library.
+ *
+ * @param handle Handle to dl.
+ * @param symbol Function name.
+ * @return Pointer to symbol.
+ */
 Symbol dl_sym(Handle handle, char* symbol); // get DL symbol
 
+/**
+ * @brief Print an error message.
+ *
+ * Print a custom error message in godot terminal.
+ *
+ * @param message Message to print
+ */
 void error_msg(String message);
 
+/**
+ * @brief Get a ffi type from literal.
+ *
+ * Get and return a ffi type corresponding to the given string name.
+ *
+ * @param type Type name.
+ * @return Pointer to ffi type.
+ */
 ffi_type* get_type(String type); // get ffi type
 
 #endif // COMMON_H

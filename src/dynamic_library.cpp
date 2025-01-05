@@ -22,36 +22,43 @@ void DynamicLibrary::set_handle(Handle handle) {
 }
 
 Ref<DynamicLibraryFunction> DynamicLibrary::get_function(String name, PackedStringArray argument_types, String return_type) {
-    // Get symbol from the library
+    // Get (function) symbol from the library
     Symbol symbol = dl_sym(this->handle, (char*) name.utf8().get_data());
     if (!symbol) {
-        error_msg(String(name.utf8().get_data()));
         error_msg("Function \"" + name + "\" not found in the current dl.");
         return Ref<DynamicLibraryFunction>();
     }
 
     ffi_cif *cif = new ffi_cif();
     ffi_type **arg_types = new ffi_type*[argument_types.size()];
-    ffi_status status;
     
+    // Get all the ffi types from literal
     for (int i = 0; i < argument_types.size(); i++) {
         arg_types[i] = get_type(argument_types[i]);
     }
 
-    status = ffi_prep_cif(
-        cif,
-        FFI_DEFAULT_ABI, // application binary interface (call standard)
-        argument_types.size(),
-        get_type(return_type),
-        arg_types
-    );
-
-    // TODO
-    switch (status) {
+    switch (
+        ffi_prep_cif(
+            cif,
+            FFI_DEFAULT_ABI, // application binary interface (call standard)
+            argument_types.size(),
+            get_type(return_type),
+            arg_types
+        )
+    ) {
         case FFI_OK: break;
-        case FFI_BAD_TYPEDEF: break;
-        case FFI_BAD_ABI: break;
-        default: break;
+        case FFI_BAD_TYPEDEF:
+            error_msg("FFI_BAD_TYPEDEF: cif is NULL or atypes or rtype is malformed.");
+            return Ref<DynamicLibraryFunction>();
+            break;
+        case FFI_BAD_ABI:
+            error_msg("FFI_BAD_ABI: abi does not refer to a valid ABI.");
+            return Ref<DynamicLibraryFunction>();
+            break;
+        default:
+            error_msg("Unknown FFI error: unknown ffi_status given by ffi_prep_cif.");
+            return Ref<DynamicLibraryFunction>();
+            break;
     }
 
     Ref<DynamicLibraryFunction> ref;

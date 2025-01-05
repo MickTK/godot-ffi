@@ -12,7 +12,16 @@ void DynamicLibraryFunction::_bind_methods() {
 DynamicLibraryFunction::DynamicLibraryFunction() { }
 
 DynamicLibraryFunction::~DynamicLibraryFunction() {
-    if (cif != nullptr) delete this->cif;
+    if (dl != nullptr) {
+        this->dl = Ref<DynamicLibrary>();
+    }
+    if (cif != nullptr) {
+        delete this->cif;
+        this->cif = nullptr;
+    }
+    if (symbol != nullptr) {
+        this->symbol = nullptr;
+    }
 }
 
 void DynamicLibraryFunction::bind(Ref<DynamicLibrary> dl, Symbol symbol, ffi_cif* cif) {
@@ -23,7 +32,7 @@ void DynamicLibraryFunction::bind(Ref<DynamicLibrary> dl, Symbol symbol, ffi_cif
 
 Variant DynamicLibraryFunction::invoke(Array args) {
     if (this->cif == nullptr) {
-        error_msg("Invalid function.");
+        error_msg("cif is NULL: invalid call interface.");
         return Variant();
     }
 
@@ -33,7 +42,6 @@ Variant DynamicLibraryFunction::invoke(Array args) {
     bool mem_flag[this->cif->nargs]; // used to free the allocated memory
 
     // Casting Godot types to ffi types
-    // TODO: add more argument types
     for (int i = 0; i < args.size(); i++) {
         mem_flag[i] = false;
         switch(args[i].get_type()) {
@@ -58,8 +66,8 @@ Variant DynamicLibraryFunction::invoke(Array args) {
                 mem_flag[i] = true;
                 break;
             default:
-                error_msg("Unsupported argument of type: " + String::num(args[i].get_type()));
-                arg_values[i] = nullptr;
+                error_msg("Invalid argument type: " + String::num(args[i].get_type()));
+                return Variant();
         }
     }
 
@@ -86,7 +94,7 @@ Variant DynamicLibraryFunction::invoke(Array args) {
     else if (cif->rtype == &ffi_type_pointer) res = Variant(*(char**) &result);
     else { error_msg("Invalid result type."); res = Variant(); }
 
-    // Free the memory
+    // Free the allocated memory
     pStr = nullptr;
     for (int i = 0; i < this->cif->nargs; i++) {
         if (mem_flag[i]) {

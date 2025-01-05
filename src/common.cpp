@@ -34,11 +34,9 @@ Symbol dl_sym(Handle handle, char* symbol) {
 #endif
 }
 
-
-void error_msg(String message) {
+void error_msg(String message = "Generic error.") {
     UtilityFunctions::print("\x1b[31;1mGodot FFI error:\x1b[0m " + String("\x1b[31m" + message + "\x1b[0m"));
 }
-
 
 ffi_type* get_type(String type) {
     if      (type == "uchar")  return &ffi_type_uchar;
@@ -57,7 +55,7 @@ ffi_type* get_type(String type) {
     else if (type == "pointer" || type == "string")
         return &ffi_type_pointer;
     else {
-        error_msg("Unknown argument type: " + type);
+        error_msg("Unknown argument type: " + type + ".");
         return &ffi_type_void;
     }
 }
