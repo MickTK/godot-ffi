@@ -7,12 +7,15 @@
 #include "dynamic_library_loader.h"
 #include "dynamic_library.h"
 #include "dynamic_library_function.h"
+#include "constants.h"
 
 using namespace godot;
 
 void initialize_ffi_module(ModuleInitializationLevel p_level) {
 	if (p_level != MODULE_INITIALIZATION_LEVEL_SCENE) { return; }
 	// Singletons
+	ClassDB::register_class<FFI>();
+    Engine::get_singleton()->register_singleton("FFI", memnew(FFI));
 	ClassDB::register_class<DynamicLibraryLoader>();
     Engine::get_singleton()->register_singleton("DynamicLibraryLoader", memnew(DynamicLibraryLoader));
 	// Classes
