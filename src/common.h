@@ -77,6 +77,14 @@ void error_msg(String message);
 
 namespace godot {
 
+/**
+ * @class FFI
+ * @brief FFI types.
+ *
+ * FFI types enumeration.
+ *
+ * @note Singleton.
+ */
 class FFI : public RefCounted {
     GDCLASS(FFI, RefCounted);
 
