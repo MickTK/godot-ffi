@@ -94,19 +94,25 @@ protected:
 public:
     enum {
         VOID,
-        UINT8, BOOL = UINT8,
-        UINT16,
-        UINT32,
-        UINT64,
-        SINT8,
-        SINT16,
-        SINT32,
-        SINT64, INT = SINT64,
-        UCHAR,
-        SCHAR,
-        FLOAT32,
-        DOUBLE, FLOAT = DOUBLE, FLOAT64 = DOUBLE,
-        POINTER, STRING = POINTER,
+        UINT8,   /**< Unsigned 8 bit integer. */
+        UINT16,  /**< Unsigned 16 bit integer. */
+        UINT32,  /**< Unsigned 32 bit integer. */
+        UINT64,  /**< Unsigned 64 bit integer. */
+        SINT8,   /**< Signed 8 bit integer. */
+        SINT16,  /**< Signed 16 bit integer. */
+        SINT32,  /**< Signed 32 bit integer. */
+        SINT64,  /**< Signed 64 bit integer. */
+        UCHAR,   /**< Unsigned char. */
+        SCHAR,   /**< Signed char. */
+        FLOAT32, /**< 32 bit float. */
+        DOUBLE,  /**< 64 bit float. */
+        POINTER, /**< Unsigned 64 bit pointer. */
+
+        /* Aliases */
+        BOOL = UINT8,
+        INT = SINT64,
+        FLOAT = DOUBLE, FLOAT64 = DOUBLE,
+        STRING = POINTER,
     };
 
     /**

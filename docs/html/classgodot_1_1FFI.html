@@ -124,29 +124,29 @@ Inheritance diagram for godot::FFI:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a539001722f5aa3f008389e485b68dd60" id="r_a539001722f5aa3f008389e485b68dd60"><td class="memItemLeft" align="right" valign="top"><a id="a539001722f5aa3f008389e485b68dd60" name="a539001722f5aa3f008389e485b68dd60"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
+<tr class="memitem:a539001722f5aa3f008389e485b68dd60" id="r_a539001722f5aa3f008389e485b68dd60"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
 &#160;&#160;<b>VOID</b>
-, <b>UINT8</b>
+, <a class="el" href="#a539001722f5aa3f008389e485b68dd60ac44407b3e9a367dc19a911212c98aa25">UINT8</a>
+, <a class="el" href="#a539001722f5aa3f008389e485b68dd60a9657cf84cd6ea34932ecdab934de14df">UINT16</a>
+, <a class="el" href="#a539001722f5aa3f008389e485b68dd60af4148dce6882f9e19c2ec58be691ad9b">UINT32</a>
+, <br />
+&#160;&#160;<a class="el" href="#a539001722f5aa3f008389e485b68dd60a471b33fcddfbd2907a114d0eda7de02d">UINT64</a>
+, <a class="el" href="#a539001722f5aa3f008389e485b68dd60a25d3876f793abcc3373ebbc2be09a5a3">SINT8</a>
+, <a class="el" href="#a539001722f5aa3f008389e485b68dd60a4633a436fbb555a85cf17c963aa69f33">SINT16</a>
+, <a class="el" href="#a539001722f5aa3f008389e485b68dd60ae9598b80c9298cf0abc4b60689ade07f">SINT32</a>
+, <br />
+&#160;&#160;<a class="el" href="#a539001722f5aa3f008389e485b68dd60a6ec75dfcbae04c22090152420e0b36cb">SINT64</a>
+, <a class="el" href="#a539001722f5aa3f008389e485b68dd60ab09b02af24d4683fec5126318b61bb7e">UCHAR</a>
+, <a class="el" href="#a539001722f5aa3f008389e485b68dd60aa52c4b1535eae2cddcf9fd07589de4c5">SCHAR</a>
+, <a class="el" href="#a539001722f5aa3f008389e485b68dd60a26b2871548d1a31a483b7122111a42ea">FLOAT32</a>
+, <br />
+&#160;&#160;<a class="el" href="#a539001722f5aa3f008389e485b68dd60afbaae2a3b3dace4426ae59be5aea798f">DOUBLE</a>
+, <a class="el" href="#a539001722f5aa3f008389e485b68dd60ac9311edaf90e1f4e4b7fab84f39f91d5">POINTER</a>
 , <b>BOOL</b> = UINT8
-, <b>UINT16</b>
-, <br />
-&#160;&#160;<b>UINT32</b>
-, <b>UINT64</b>
-, <b>SINT8</b>
-, <b>SINT16</b>
-, <br />
-&#160;&#160;<b>SINT32</b>
-, <b>SINT64</b>
 , <b>INT</b> = SINT64
-, <b>UCHAR</b>
 , <br />
-&#160;&#160;<b>SCHAR</b>
-, <b>FLOAT32</b>
-, <b>DOUBLE</b>
-, <b>FLOAT</b> = DOUBLE
-, <br />
-&#160;&#160;<b>FLOAT64</b> = DOUBLE
-, <b>POINTER</b>
+&#160;&#160;<b>FLOAT</b> = DOUBLE
+, <b>FLOAT64</b> = DOUBLE
 , <b>STRING</b> = POINTER
 <br />
  }</td></tr>
@@ -168,7 +168,50 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>_bind_methods<
 <div class="textblock"><p><a class="el" href="classgodot_1_1FFI.html" title="FFI types.">FFI</a> types. </p>
 <p><a class="el" href="classgodot_1_1FFI.html" title="FFI types.">FFI</a> types enumeration.</p>
 <dl class="section note"><dt>Note</dt><dd>Singleton. </dd></dl>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a539001722f5aa3f008389e485b68dd60" name="a539001722f5aa3f008389e485b68dd60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a539001722f5aa3f008389e485b68dd60">&#9670;&#160;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a539001722f5aa3f008389e485b68dd60ac44407b3e9a367dc19a911212c98aa25" name="a539001722f5aa3f008389e485b68dd60ac44407b3e9a367dc19a911212c98aa25"></a>UINT8&#160;</td><td class="fielddoc"><p>Unsigned 8 bit integer. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a539001722f5aa3f008389e485b68dd60a9657cf84cd6ea34932ecdab934de14df" name="a539001722f5aa3f008389e485b68dd60a9657cf84cd6ea34932ecdab934de14df"></a>UINT16&#160;</td><td class="fielddoc"><p>Unsigned 16 bit integer. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a539001722f5aa3f008389e485b68dd60af4148dce6882f9e19c2ec58be691ad9b" name="a539001722f5aa3f008389e485b68dd60af4148dce6882f9e19c2ec58be691ad9b"></a>UINT32&#160;</td><td class="fielddoc"><p>Unsigned 32 bit integer. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a539001722f5aa3f008389e485b68dd60a471b33fcddfbd2907a114d0eda7de02d" name="a539001722f5aa3f008389e485b68dd60a471b33fcddfbd2907a114d0eda7de02d"></a>UINT64&#160;</td><td class="fielddoc"><p>Unsigned 64 bit integer. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a539001722f5aa3f008389e485b68dd60a25d3876f793abcc3373ebbc2be09a5a3" name="a539001722f5aa3f008389e485b68dd60a25d3876f793abcc3373ebbc2be09a5a3"></a>SINT8&#160;</td><td class="fielddoc"><p>Signed 8 bit integer. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a539001722f5aa3f008389e485b68dd60a4633a436fbb555a85cf17c963aa69f33" name="a539001722f5aa3f008389e485b68dd60a4633a436fbb555a85cf17c963aa69f33"></a>SINT16&#160;</td><td class="fielddoc"><p>Signed 16 bit integer. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a539001722f5aa3f008389e485b68dd60ae9598b80c9298cf0abc4b60689ade07f" name="a539001722f5aa3f008389e485b68dd60ae9598b80c9298cf0abc4b60689ade07f"></a>SINT32&#160;</td><td class="fielddoc"><p>Signed 32 bit integer. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a539001722f5aa3f008389e485b68dd60a6ec75dfcbae04c22090152420e0b36cb" name="a539001722f5aa3f008389e485b68dd60a6ec75dfcbae04c22090152420e0b36cb"></a>SINT64&#160;</td><td class="fielddoc"><p>Signed 64 bit integer. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a539001722f5aa3f008389e485b68dd60ab09b02af24d4683fec5126318b61bb7e" name="a539001722f5aa3f008389e485b68dd60ab09b02af24d4683fec5126318b61bb7e"></a>UCHAR&#160;</td><td class="fielddoc"><p>Unsigned char. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a539001722f5aa3f008389e485b68dd60aa52c4b1535eae2cddcf9fd07589de4c5" name="a539001722f5aa3f008389e485b68dd60aa52c4b1535eae2cddcf9fd07589de4c5"></a>SCHAR&#160;</td><td class="fielddoc"><p>Signed char. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a539001722f5aa3f008389e485b68dd60a26b2871548d1a31a483b7122111a42ea" name="a539001722f5aa3f008389e485b68dd60a26b2871548d1a31a483b7122111a42ea"></a>FLOAT32&#160;</td><td class="fielddoc"><p>32 bit float. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a539001722f5aa3f008389e485b68dd60afbaae2a3b3dace4426ae59be5aea798f" name="a539001722f5aa3f008389e485b68dd60afbaae2a3b3dace4426ae59be5aea798f"></a>DOUBLE&#160;</td><td class="fielddoc"><p>64 bit float. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a539001722f5aa3f008389e485b68dd60ac9311edaf90e1f4e4b7fab84f39f91d5" name="a539001722f5aa3f008389e485b68dd60ac9311edaf90e1f4e4b7fab84f39f91d5"></a>POINTER&#160;</td><td class="fielddoc"><p>Unsigned 64 bit pointer. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="ad5a00b55147bbdc550b02e8f38aaea42" name="ad5a00b55147bbdc550b02e8f38aaea42"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad5a00b55147bbdc550b02e8f38aaea42">&#9670;&#160;</a></span>get_type()</h2>
 

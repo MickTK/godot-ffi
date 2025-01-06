@@ -33,10 +33,10 @@ clean_doxygen_docs () {
 }
 
 case "$1" in
-  build_testlib)
+  testlib)
     build_test_library
     ;;
-  test_gd)
+  test)
     execute_gd_test
     ;;
   doxygen)

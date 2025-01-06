@@ -1,6 +1,10 @@
 ![Godot](https://badgen.net/badge/Godot/4.3/blue)
 ![Version](https://badgen.net/badge/Version/0.1.0/green)
 
+<p align="center">
+<img src="https://godotengine.org/assets/press/icon_color.png" alt="Godot logo" width="150">
+</p>
+
 <h1 align="center">Godot FFI</h1>
 
 <p align="center">
