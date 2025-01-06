@@ -10,7 +10,7 @@ sources = Glob("src/*.cpp")
 
 # Documentation
 if env["target"] in ["editor", "template_debug"]:
-    doc_data = env.GodotCPPDocData("src/gen/doc_data.gen.cpp", source=Glob("doc_classes/*.xml"))
+    doc_data = env.GodotCPPDocData("src/gen/doc_data.gen.cpp", source=Glob("docs/editor/*.xml"))
     sources.append(doc_data)
 
 if env["platform"] == "macos":

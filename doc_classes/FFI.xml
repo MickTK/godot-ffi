@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<class name="FFI" inherits="RefCounted">
-    <brief_description>
-        FFI types.
-    </brief_description>
-    <description>
-        FFI types enumeration.
-    </description>
-</class>
