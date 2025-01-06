@@ -129,28 +129,30 @@ $(function(){initNavTree('dynamic__library__function_8h_source.html',''); initRe
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">private</span>:</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    Ref&lt;DynamicLibrary&gt; dl = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    ffi_cif* cif = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    Symbol symbol = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_typedef" href="common_8h.html#a083daaaa2f9eea706332cd4b95e02df6">Symbol</a> symbol = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> _bind_methods();</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    DynamicLibraryFunction();</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    ~DynamicLibraryFunction();</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span></div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classgodot_1_1DynamicLibraryFunction.html#a589f7dd02bd145c52a8a571307ee8cc2">bind</a>(Ref&lt;DynamicLibrary&gt; dl, Symbol symbol, ffi_cif* cif);</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    Variant <a class="code hl_function" href="classgodot_1_1DynamicLibraryFunction.html#aba31df3c341e36a42782a682929d9fff">invoke</a>(Array args = Array());</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>};</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classgodot_1_1DynamicLibraryFunction.html#acf5db5faa3b2a7e57a27248f65488c4e">_bind_methods</a>();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    DynamicLibraryFunction();</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    ~DynamicLibraryFunction();</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classgodot_1_1DynamicLibraryFunction.html#a589f7dd02bd145c52a8a571307ee8cc2">bind</a>(Ref&lt;DynamicLibrary&gt; dl, <a class="code hl_typedef" href="common_8h.html#a083daaaa2f9eea706332cd4b95e02df6">Symbol</a> symbol, ffi_cif* cif);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    Variant <a class="code hl_function" href="classgodot_1_1DynamicLibraryFunction.html#aba31df3c341e36a42782a682929d9fff">invoke</a>(Array args = Array());</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>};</div>
 </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#endif </span><span class="comment">// DYNAMIC_LIBRARY_FUNCTION_H</span></div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>}</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span><span class="preprocessor">#endif </span><span class="comment">// DYNAMIC_LIBRARY_FUNCTION_H</span></div>
 <div class="ttc" id="aclassgodot_1_1DynamicLibraryFunction_html_a589f7dd02bd145c52a8a571307ee8cc2"><div class="ttname"><a href="classgodot_1_1DynamicLibraryFunction.html#a589f7dd02bd145c52a8a571307ee8cc2">godot::DynamicLibraryFunction::bind</a></div><div class="ttdeci">void bind(Ref&lt; DynamicLibrary &gt; dl, Symbol symbol, ffi_cif *cif)</div><div class="ttdoc">Bind the object to a dl function.</div><div class="ttdef"><b>Definition</b> dynamic_library_function.cpp:27</div></div>
 <div class="ttc" id="aclassgodot_1_1DynamicLibraryFunction_html_aba31df3c341e36a42782a682929d9fff"><div class="ttname"><a href="classgodot_1_1DynamicLibraryFunction.html#aba31df3c341e36a42782a682929d9fff">godot::DynamicLibraryFunction::invoke</a></div><div class="ttdeci">Variant invoke(Array args=Array())</div><div class="ttdoc">Invoke the function.</div><div class="ttdef"><b>Definition</b> dynamic_library_function.cpp:33</div></div>
+<div class="ttc" id="aclassgodot_1_1DynamicLibraryFunction_html_acf5db5faa3b2a7e57a27248f65488c4e"><div class="ttname"><a href="classgodot_1_1DynamicLibraryFunction.html#acf5db5faa3b2a7e57a27248f65488c4e">godot::DynamicLibraryFunction::_bind_methods</a></div><div class="ttdeci">static void _bind_methods()</div><div class="ttdoc">GDScript API.</div><div class="ttdef"><b>Definition</b> dynamic_library_function.cpp:8</div></div>
 <div class="ttc" id="aclassgodot_1_1DynamicLibrary_html"><div class="ttname"><a href="classgodot_1_1DynamicLibrary.html">godot::DynamicLibrary</a></div><div class="ttdoc">Dynamic library handle wrapper.</div><div class="ttdef"><b>Definition</b> dynamic_library.h:25</div></div>
 <div class="ttc" id="acommon_8h_html"><div class="ttname"><a href="common_8h.html">common.h</a></div></div>
+<div class="ttc" id="acommon_8h_html_a083daaaa2f9eea706332cd4b95e02df6"><div class="ttname"><a href="common_8h.html#a083daaaa2f9eea706332cd4b95e02df6">Symbol</a></div><div class="ttdeci">void * Symbol</div><div class="ttdoc">DL function symbol.</div><div class="ttdef"><b>Definition</b> common.h:28</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

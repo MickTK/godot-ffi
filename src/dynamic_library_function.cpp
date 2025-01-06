@@ -6,7 +6,7 @@
 using namespace godot;
 
 void DynamicLibraryFunction::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("invoke", "args"), &DynamicLibraryFunction::invoke);
+	ClassDB::bind_method(D_METHOD("invoke", "args"), &DynamicLibraryFunction::invoke, DEFVAL(Array()));
 }
 
 DynamicLibraryFunction::DynamicLibraryFunction() { }

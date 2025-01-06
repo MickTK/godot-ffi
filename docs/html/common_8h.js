@@ -1,6 +1,7 @@
 var common_8h =
 [
     [ "godot::FFI", "classgodot_1_1FFI.html", null ],
+    [ "Symbol", "common_8h.html#a083daaaa2f9eea706332cd4b95e02df6", null ],
     [ "dl_close", "common_8h.html#ab69c010ca3a2f5339e1cc10938b8bf39", null ],
     [ "dl_error", "common_8h.html#a0e9786cb866ed40fb53ffb03ca7634d4", null ],
     [ "dl_open", "common_8h.html#abaf1ed41db4913ceee57b411a9aeed59", null ],

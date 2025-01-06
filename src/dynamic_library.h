@@ -32,6 +32,9 @@ private:
     Handle handle = nullptr;
 
 protected:
+    /**
+    * @brief GDScript API.
+    */
     static void _bind_methods();
 
 public:

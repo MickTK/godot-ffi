@@ -22,6 +22,9 @@ typedef void* Handle;
 typedef HINSTANCE Handle;
 #endif
 
+/**
+ * @brief DL function symbol.
+ */
 typedef void* Symbol;
 
 using namespace godot;
@@ -89,6 +92,9 @@ class FFI : public RefCounted {
     GDCLASS(FFI, RefCounted);
 
 protected:
+    /**
+    * @brief GDScript API.
+    */
     static void _bind_methods();
 
 public:

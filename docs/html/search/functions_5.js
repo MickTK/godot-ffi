@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['open_0',['open',['../classgodot_1_1DynamicLibraryLoader.html#a91f1fa84bb48216e81983d5d47f714e0',1,'godot::DynamicLibraryLoader']]]
+  ['invoke_0',['invoke',['../classgodot_1_1DynamicLibraryFunction.html#aba31df3c341e36a42782a682929d9fff',1,'godot::DynamicLibraryFunction']]]
 ];

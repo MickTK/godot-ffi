@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pointer_0',['POINTER',['../classgodot_1_1FFI.html#a539001722f5aa3f008389e485b68dd60ac9311edaf90e1f4e4b7fab84f39f91d5',1,'godot::FFI']]]
+  ['open_0',['open',['../classgodot_1_1DynamicLibraryLoader.html#a91f1fa84bb48216e81983d5d47f714e0',1,'godot::DynamicLibraryLoader']]]
 ];

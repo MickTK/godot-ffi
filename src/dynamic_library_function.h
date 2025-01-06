@@ -42,6 +42,9 @@ private:
     Symbol symbol = nullptr;
 
 protected:
+    /**
+    * @brief GDScript API.
+    */
     static void _bind_methods();
 
 public:

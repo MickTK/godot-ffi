@@ -23,6 +23,9 @@ class DynamicLibraryLoader : public RefCounted {
     GDCLASS(DynamicLibraryLoader, RefCounted);
 
 protected:
+    /**
+    * @brief GDScript API.
+    */
     static void _bind_methods();
 
 public:

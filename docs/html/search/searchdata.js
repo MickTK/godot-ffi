@@ -1,10 +1,11 @@
 var indexSectionsWithContent =
 {
-  0: "bcdefgiopsu",
+  0: "_bcdefgiopsu",
   1: "df",
   2: "cd",
-  3: "bdegios",
-  4: "dfpsu"
+  3: "_bdegios",
+  4: "s",
+  5: "dfpsu"
 };
 
 var indexSectionNames =
@@ -13,7 +14,8 @@ var indexSectionNames =
   1: "classes",
   2: "files",
   3: "functions",
-  4: "enumvalues"
+  4: "typedefs",
+  5: "enumvalues"
 };
 
 var indexSectionLabels =
@@ -22,6 +24,7 @@ var indexSectionLabels =
   1: "Classes",
   2: "Files",
   3: "Functions",
-  4: "Enumerator"
+  4: "Typedefs",
+  5: "Enumerator"
 };
 

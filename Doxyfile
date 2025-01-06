@@ -198,7 +198,7 @@ CITE_BIB_FILES         =
 
 EXTERNAL_TOOL_PATH     =
 
-QUIET                  = NO
+QUIET                  = YES
 
 WARNINGS               = YES
 
