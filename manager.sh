@@ -1,35 +1,35 @@
 #!/bin/bash
 
 build_module () {
-    scons
+  scons
 }
 
 clean_module() {
-    cd src
-    rm -f *.os
+  cd src
+  rm -f *.os
 }
 
 build_test_library () {
-    cd testlib
-    make testlib.so
-    cd ..
-    cp testlib/testlib.so demo/bin/testlib.so
+  cd testlib
+  make testlib.so
+  cd ..
+  cp testlib/testlib.so demo/bin/testlib.so
 }
 
 clean_test_library() {
-    rm -f demo/bin/testlib.so
+  rm -f demo/bin/testlib.so
 }
 
 execute_gd_test () {
-    cd demo
-    godot --no-window --headless --script test.gd
+  cd demo
+  godot --no-window --headless --script test.gd
 }
 
 create_doxygen_docs () {
   doxygen Doxyfile
 }
 clean_doxygen_docs () {
-  rm -rf ./docs
+  rm -rf ./docs/html
 }
 
 case "$1" in

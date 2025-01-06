@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class name="DynamicLibrary" inherits="RefCounted">
+    <brief_description>
+        Dynamic library interface.
+    </brief_description>
+    <description>
+        Dynamic library interface.
+    </description>
+    <methods>
+        <method name="get_function">
+            <description>
+                Get and return a function reference from the dynamic library.
+            </description>
+            <argument name="name" type="String" index="0" />
+            <argument name="argument_types" type="PackedInt32Array" index="0" />
+            <argument name="return_type" type="String" index="0" />
+            <return type="DynamicLibraryFunction" />
+        </method>
+    </methods>
+</class>
