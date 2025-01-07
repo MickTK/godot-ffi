@@ -34,6 +34,7 @@ build_test_library:
 # Clean the test library
 .PHONY: clean_test_library
 clean_test_library:
+	rm -f $(TESTLIB_SO)
 	rm -f $(DEMO_BIN_SO)
 
 # Execute Godot test

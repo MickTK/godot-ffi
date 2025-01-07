@@ -1,5 +1,5 @@
 ![Godot](https://badgen.net/badge/Godot/4.3/blue)
-![Version](https://badgen.net/badge/Version/0.1.0/green)
+![Version](https://badgen.net/badge/Version/1.0.0/green)
 
 <p align="center">
 <img src="https://godotengine.org/assets/press/icon_color.png" alt="Godot logo" width="150">
@@ -16,12 +16,13 @@ A foreign function interface plugin written with GDExtension, based on <a href="
 Informations and dependencies can be found in the [official page](https://docs.godotengine.org/en/4.3/tutorials/scripting/gdextension/index.html).
 
 ```bash
-# Compile plugin
+# Compile the plugin (with default parameters)
 scons
-# Compile test library
+# Compile the test library
 gcc -shared testlib/testlib.cpp -o demo/bin/testlib.so
-# Execute unit tests
-godot --no-window --headless --script demo/test.gd
+# Execute gd tests
+cd demo
+godot --no-window --headless --script test.gd
 ```
 
 ## Example
