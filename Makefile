@@ -1,33 +1,70 @@
-# Yup, I have them riiight there.
-GODOTCPP_PATH ?= ../godot-cpp
-GODOT_PATH ?= ../godot
-GODOT_BINARY = $(GODOT_PATH)/bin/godot.x11.tools.64
+# Variables
+SCONS = scons
+GODOT = godot
+DOXYGEN = doxygen
+DOXYFILE = Doxyfile
+SRC_DIR = src
+TESTLIB_DIR = testlib
+DEMO_DIR = demo
+TESTLIB_SO = $(TESTLIB_DIR)/testlib.so
+DEMO_BIN_SO = $(DEMO_DIR)/bin/testlib.so
+DOCS_DIR = ./docs/html
+TEST_SCRIPT = test.gd
 
-FFI_INCLUDES = $(shell pkg-config --cflags libffi)
-INCLUDES= \
-		  -I$(GODOT_PATH)/modules/gdnative/include \
-		  -I$(GODOTCPP_PATH)/include \
-		  -I$(GODOTCPP_PATH)/include/core \
-		  -I$(GODOTCPP_PATH)/include/gen \
-		  -L$(GODOTCPP_PATH)/bin \
-		  $(FFI_INCLUDES)
+# Default target
+.PHONY: all
+all: help
 
-LIBS = -lgodot-cpp.linux.debug.64 -lstdc++ -lffi -static-libstdc++ -static-libgcc
-FLAGS = -ggdb -fPIC
+# Build the module
+.PHONY: build_module
+build_module:
+	$(SCONS)
 
-all: foreigner.so
+# Clean the module
+.PHONY: clean_module
+clean_module:
+	rm -f $(SRC_DIR)/*.os
 
-foreigner.so: src/*.cpp src/*.h
-	gcc -shared src/*.cpp -o foreigner.so $(LIBS) $(INCLUDES) $(FLAGS)
+# Build the test library
+.PHONY: build_test_library
+build_test_library:
+	$(MAKE) -C $(TESTLIB_DIR) testlib.so
+	cp $(TESTLIB_SO) $(DEMO_BIN_SO)
 
-testlib.so: testlib/*.cpp
-	gcc -shared testlib/*.cpp -o testlib.so
+# Clean the test library
+.PHONY: clean_test_library
+clean_test_library:
+	rm -f $(TESTLIB_SO)
+	rm -f $(DEMO_BIN_SO)
 
-test: foreigner.so testlib.so
-	$(GODOT_BINARY) --no-window -s test/test.gd
+# Execute Godot test
+.PHONY: execute_gd_test
+execute_gd_test:
+	cd $(DEMO_DIR) && $(GODOT) --no-window --headless --script $(TEST_SCRIPT)
 
-clean:
-	rm -f *.so
+# Create Doxygen documentation
+.PHONY: create_doxygen_docs
+create_doxygen_docs:
+	$(DOXYGEN) $(DOXYFILE)
 
-.PHONY: test clean
+# Clean Doxygen documentation
+.PHONY: clean_doxygen_docs
+clean_doxygen_docs:
+	rm -rf $(DOCS_DIR)
 
+# Prepare for publishing
+.PHONY: prep_for_publish
+prep_for_publish: clean_module clean_test_library clean_doxygen_docs create_doxygen_docs
+
+# Help message
+.PHONY: help
+help:
+	@echo "Available targets:"
+	@echo "  build_module         - Build the module using scons"
+	@echo "  clean_module         - Clean compiled module files"
+	@echo "  build_test_library   - Build the test library and copy it to the demo/bin folder"
+	@echo "  clean_test_library   - Clean the test library files"
+	@echo "  execute_gd_test      - Run the test.gd script with Godot in headless mode"
+	@echo "  create_doxygen_docs  - Generate the Doxygen documentation"
+	@echo "  clean_doxygen_docs   - Remove the generated Doxygen documentation"
+	@echo "  prep_for_publish     - Clean and recreate everything for publishing"
